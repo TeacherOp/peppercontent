@@ -11,10 +11,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from flask import Flask, abort, render_template, request
+from flask import Flask, abort, jsonify, redirect, render_template, request, url_for
 
 import config
 from atlas import clients as clients_mod
+from atlas import store
 from atlas.mock_api import _gen
 from atlas.report.builder import build_report
 
@@ -73,6 +74,7 @@ def _form_context(**extra):
         "periods": _period_options(),
         "cadences": list(config.CADENCES.keys()),
         "default_cadence": "Monthly",
+        "reports": store.list_reports(),
     }
     ctx.update(extra)
     return ctx
@@ -99,7 +101,31 @@ def report():
     except RuntimeError as exc:
         return render_template("index.html", **_form_context(error=str(exc))), 400
 
-    return render_template("report.html", report=data)
+    meta = store.save_report(data)
+    return redirect(url_for("view_report", report_id=meta["id"]))
+
+
+@app.route("/reports/<report_id>")
+def view_report(report_id):
+    data = store.get_report(report_id)
+    if data is None:
+        abort(404)
+    return render_template("report.html", report=data["report"], meta=data["meta"])
+
+
+@app.route("/reports/<report_id>/rename", methods=["POST"])
+def rename_report(report_id):
+    name = request.form.get("name", "")
+    new_name = store.rename_report(report_id, name)
+    if new_name is None:
+        abort(404)
+    return jsonify({"name": new_name})
+
+
+@app.route("/reports/<report_id>/delete", methods=["POST"])
+def delete_report(report_id):
+    store.delete_report(report_id)
+    return redirect(url_for("index"))
 
 
 if __name__ == "__main__":

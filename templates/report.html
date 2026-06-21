@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{ report.client.name }} — {{ report.period.label }} | Atlas{% endblock %}
+{% block title %}{{ (meta.name if meta else report.client.name) }} — {{ report.period.label }} | Atlas{% endblock %}
 {% block head %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 {% endblock %}
@@ -40,6 +40,7 @@
 <div class="actionbar no-print">
   <a href="{{ url_for('index') }}" class="link">← New report</a>
   <div class="actions">
+    {% if meta %}<span class="saved-tag">Saved · {{ meta.created_display }}</span>{% endif %}
     <span class="draft-tag">Draft — for review</span>
     <button class="btn ghost" onclick="window.print()">Export PDF</button>
     <button class="btn" onclick="approve(this)">Approve &amp; send</button>

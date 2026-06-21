@@ -24,13 +24,13 @@ collection, delta computation, narrative drafting, and formatting — leaving th
 manager to **review, edit, and approve**.
 
 **North-star metric:** median minutes-to-send per report.
-**Guardrail:** edit distance / approval rate (quality must not drop — see §7).
+**Guardrail:** edit distance / approval rate (quality must not drop — see §8).
 
 ## 3. Users & the experience
 
 | Who | When | What they see |
 |---|---|---|
-| **CS manager** | On the reporting cadence | Picks a client + period + cadence → reviews a fully drafted report → edits the narrative → approves & sends. |
+| **CS manager** | On the reporting cadence | Picks a client + period + cadence → reviews a fully drafted report → edits the narrative → approves & sends. Reopens, renames, or deletes any past report from the library. |
 | **Client** | On receipt | A clean, branded report (HTML/PDF) leading with AI search visibility, then organic, traffic, competitive, and content. |
 | **CS lead** | Ongoing | Consistency across the team; a shared definition of what a "good report" contains. |
 
@@ -38,9 +38,11 @@ manager to **review, edit, and approve**.
 `computes period-over-period deltas` → `Claude drafts the narrative &
 recommendations` → `manager reviews/edits` → `Approve & send`.
 
-The prototype is the clickable artifact of this flow: the request form
-(`/`) and the rendered, print-to-PDF report (`/report`), with a draft tag and an
-Approve & send action.
+The prototype is the clickable artifact of this flow: a two-pane home (`/`) with
+the **report generator** on the left and a **Generated reports** library on the
+right, plus the rendered, print-to-PDF report at its own URL (`/reports/<id>`)
+with a draft tag and an Approve & send action. Every generated report is saved
+and reopenable from the library.
 
 ## 4. What the product does
 
@@ -55,6 +57,9 @@ Approve & send action.
 4. **Renders a client-ready report**: an HTML page with charts, exportable to
    PDF, leading with **AI search visibility** (Pepper's differentiator).
 5. **Review → approve → send** (mocked send in the prototype).
+6. **Saves every report** to a local store and lists it in a **Generated
+   reports** library — reopen, rename, or delete without recomputing or
+   re-calling Claude (see §6).
 
 ## 5. Report contents (sections)
 
@@ -67,7 +72,31 @@ Approve & send action.
 | Content health | WordPress / Webflow / Contentful | inventory, recently published, stale count, refresh candidates |
 | Executive summary & recommendations | Claude over all of the above | narrative + prioritised actions |
 
-## 6. Data sources used (and why)
+## 6. Report library & persistence
+
+Generated reports are saved so a manager never loses work and can revisit,
+re-send, or compare past periods.
+
+- **Storage:** a lightweight local **JSON store** (no database). One file per
+  report under `data/reports/<id>.json` holds the full report *including the
+  Claude narrative*, plus a small `_index.json` for the list. Reopening a saved
+  report therefore needs **no recompute and no second Claude call** — it's
+  instant and free.
+- **Library UI:** the home page's right pane is a scrollable **Generated
+  reports** table — report name, reporting period, and generated date/time, newest
+  first.
+- **Per-report actions:**
+  - **Open** — reopens the saved report at its own shareable, refresh-safe URL
+    (`/reports/<id>`).
+  - **Rename** — the report name is editable inline (defaults to the client's
+    company name; saved on blur).
+  - **Delete** — removes the report from the store (with confirm).
+- **Why it matters:** persistence turns one-off generation into a durable record,
+  provides the per-report timestamps the eval instrumentation relies on (§8), and
+  is the foundation for production features like scheduled auto-drafts and
+  period-over-period comparison.
+
+## 7. Data sources used (and why)
 
 From the documented endpoints we use what a recurring report actually needs:
 
@@ -85,9 +114,9 @@ From the documented endpoints we use what a recurring report actually needs:
 **Endpoints intentionally skipped:** GSC URL Inspection / sitemaps / mobile test
 (diagnostics, not recurring-report material). **What we'd add:** a per-client
 **branding/config** record (logo, tone, KPI targets) and a **commentary store**
-so manager edits feed back into future drafts (see §8).
+so manager edits feed back into future drafts (see §9).
 
-## 7. Eval / experiment design — does it actually save the 4 hours?
+## 8. Eval / experiment design — does it actually save the 4 hours?
 
 **Hypothesis:** Atlas reduces median minutes-to-send per report by ≥80% with no
 drop in client-perceived quality.
@@ -115,20 +144,22 @@ drop in client-perceived quality.
 guardrail. Decision: ship if both hold; iterate on narrative prompt if quality
 lags; revisit scope if time savings fall short.
 
-## 8. Scope
+## 9. Scope
 
 **In scope (prototype):** the flow above, 3 demo clients, mock data layer,
-Claude narrative, HTML/PDF report.
+Claude narrative, HTML/PDF report, and a local **report library** (save, reopen,
+rename, delete).
 
 **Non-goals (per brief — assume they exist):** auth, billing, dashboard chrome,
-real API integration/credentials, scheduling/automated send, multi-tenant
-storage.
+real API integration/credentials, scheduling/automated send, and multi-tenant /
+cloud storage (the prototype's JSON store is single-user and local).
 
 **Next:** real source connectors; saved per-client branding & KPI targets;
-scheduled auto-draft + notify; manager edits captured as feedback to improve
-future drafts; alerting on notable swings.
+scheduled auto-draft + notify; period-over-period comparison across saved
+reports; manager edits captured as feedback to improve future drafts; alerting on
+notable swings.
 
-## 9. Assumptions & competitive context
+## 10. Assumptions & competitive context
 
 - **AI search visibility is the wedge.** Competitors (e.g. agency reporting
   tools like AgencyAnalytics, Looker Studio templates, Semrush's own reports)

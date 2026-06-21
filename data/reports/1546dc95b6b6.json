@@ -1,0 +1,707 @@
+{
+  "meta": {
+    "id": "1546dc95b6b6",
+    "name": "Northwind Legal test 1",
+    "company": "Northwind Legal",
+    "period": "October 2025",
+    "cadence": "Monthly",
+    "created_at": "2026-06-21T23:35:41",
+    "created_display": "21 Jun 2026, 23:35",
+    "created_date": "21 Jun 2026",
+    "created_time": "23:35"
+  },
+  "report": {
+    "client": {
+      "name": "Northwind Legal",
+      "domain": "northwindlegal.com",
+      "industry": "Online legal services",
+      "market": "US"
+    },
+    "period": {
+      "label": "October 2025",
+      "compare_label": "September 2025",
+      "cadence": "Monthly",
+      "start": "2025-10-01",
+      "end": "2025-10-31"
+    },
+    "organic": {
+      "summary": {
+        "clicks": {
+          "current": 14817,
+          "previous": 15340,
+          "change_pct": -3.4,
+          "direction": "down",
+          "improved": false
+        },
+        "impressions": {
+          "current": 375544,
+          "previous": 387816,
+          "change_pct": -3.2,
+          "direction": "down",
+          "improved": false
+        },
+        "ctr": {
+          "current": 0.04,
+          "previous": 0.04,
+          "change_pct": -0.3,
+          "direction": "down",
+          "improved": false
+        },
+        "position": {
+          "current": 14.9,
+          "previous": 14.3,
+          "change_pct": 4.2,
+          "direction": "up",
+          "improved": false
+        }
+      },
+      "top_queries": [
+        {
+          "phrase": "registered agent service",
+          "intent": "commercial",
+          "clicks": 1206,
+          "clicks_change": 81.1,
+          "position": 2.9,
+          "position_delta": 2.8
+        },
+        {
+          "phrase": "trademark registration",
+          "intent": "transactional",
+          "clicks": 640,
+          "clicks_change": 3.9,
+          "position": 9.6,
+          "position_delta": 0.4
+        },
+        {
+          "phrase": "s corp vs llc",
+          "intent": "informational",
+          "clicks": 390,
+          "clicks_change": -6.0,
+          "position": 14.1,
+          "position_delta": -1.4
+        },
+        {
+          "phrase": "nonprofit incorporation",
+          "intent": "transactional",
+          "clicks": 258,
+          "clicks_change": 8.9,
+          "position": 14.1,
+          "position_delta": 0.8
+        },
+        {
+          "phrase": "legalzoom alternative",
+          "intent": "commercial",
+          "clicks": 222,
+          "clicks_change": 7.8,
+          "position": 8.5,
+          "position_delta": 0.4
+        },
+        {
+          "phrase": "how to form an llc",
+          "intent": "informational",
+          "clicks": 182,
+          "clicks_change": 8.3,
+          "position": 27.9,
+          "position_delta": 1.6
+        },
+        {
+          "phrase": "llc formation service",
+          "intent": "commercial",
+          "clicks": 137,
+          "clicks_change": -23.5,
+          "position": 11.0,
+          "position_delta": -3.4
+        },
+        {
+          "phrase": "operating agreement template",
+          "intent": "informational",
+          "clicks": 123,
+          "clicks_change": -8.2,
+          "position": 15.5,
+          "position_delta": -2.2
+        }
+      ],
+      "top_pages": [
+        {
+          "path": "/blog/s-corp-vs-llc",
+          "title": "S Corp vs LLC: Which Is Right for You?",
+          "clicks": 2715,
+          "clicks_change": -0.8,
+          "position": 9.3
+        },
+        {
+          "path": "/services/llc-formation",
+          "title": "LLC Formation Service \u2014 Northwind",
+          "clicks": 2623,
+          "clicks_change": 7.1,
+          "position": 17.1
+        },
+        {
+          "path": "/blog/business-license-guide",
+          "title": "Business License Requirements by State",
+          "clicks": 2579,
+          "clicks_change": 14.8,
+          "position": 20.3
+        },
+        {
+          "path": "/services/trademark",
+          "title": "Trademark Registration \u2014 Northwind",
+          "clicks": 1844,
+          "clicks_change": -5.9,
+          "position": 16.9
+        },
+        {
+          "path": "/compare/legalzoom-alternative",
+          "title": "Northwind vs LegalZoom",
+          "clicks": 1703,
+          "clicks_change": -2.8,
+          "position": 11.2
+        },
+        {
+          "path": "/llc/how-to-form",
+          "title": "How to Form an LLC: Step-by-Step",
+          "clicks": 1416,
+          "clicks_change": 6.1,
+          "position": 6.1
+        }
+      ],
+      "gained": [
+        {
+          "phrase": "registered agent service",
+          "intent": "commercial",
+          "clicks": 1206,
+          "clicks_change": 81.1,
+          "position": 2.9,
+          "position_delta": 2.8
+        },
+        {
+          "phrase": "how to form an llc",
+          "intent": "informational",
+          "clicks": 182,
+          "clicks_change": 8.3,
+          "position": 27.9,
+          "position_delta": 1.6
+        },
+        {
+          "phrase": "business license requirements",
+          "intent": "informational",
+          "clicks": 11,
+          "clicks_change": 10.0,
+          "position": 19.5,
+          "position_delta": 1.4
+        },
+        {
+          "phrase": "nonprofit incorporation",
+          "intent": "transactional",
+          "clicks": 258,
+          "clicks_change": 8.9,
+          "position": 14.1,
+          "position_delta": 0.8
+        },
+        {
+          "phrase": "trademark registration",
+          "intent": "transactional",
+          "clicks": 640,
+          "clicks_change": 3.9,
+          "position": 9.6,
+          "position_delta": 0.4
+        }
+      ],
+      "lost": [
+        {
+          "phrase": "llc formation service",
+          "intent": "commercial",
+          "clicks": 137,
+          "clicks_change": -23.5,
+          "position": 11.0,
+          "position_delta": -3.4
+        },
+        {
+          "phrase": "ein number application",
+          "intent": "informational",
+          "clicks": 45,
+          "clicks_change": -8.2,
+          "position": 31.8,
+          "position_delta": -3.1
+        },
+        {
+          "phrase": "operating agreement template",
+          "intent": "informational",
+          "clicks": 123,
+          "clicks_change": -8.2,
+          "position": 15.5,
+          "position_delta": -2.2
+        },
+        {
+          "phrase": "s corp vs llc",
+          "intent": "informational",
+          "clicks": 390,
+          "clicks_change": -6.0,
+          "position": 14.1,
+          "position_delta": -1.4
+        }
+      ]
+    },
+    "traffic": {
+      "summary": {
+        "sessions": {
+          "current": 27919,
+          "previous": 26744,
+          "change_pct": 4.4,
+          "direction": "up",
+          "improved": true
+        },
+        "totalUsers": {
+          "current": 21776,
+          "previous": 20860,
+          "change_pct": 4.4,
+          "direction": "up",
+          "improved": true
+        },
+        "engagementRate": {
+          "current": 0.6,
+          "previous": 0.6,
+          "change_pct": 1.4,
+          "direction": "up",
+          "improved": true
+        },
+        "conversions": {
+          "current": 605,
+          "previous": 571,
+          "change_pct": 6.0,
+          "direction": "up",
+          "improved": true
+        },
+        "revenue": {
+          "current": 189482,
+          "previous": 176856,
+          "change_pct": 7.1,
+          "direction": "up",
+          "improved": true
+        }
+      },
+      "channels": [
+        {
+          "name": "Organic Search",
+          "sessions": 12545,
+          "sessions_change": 4.7,
+          "conversions": 246,
+          "revenue": 83277.02
+        },
+        {
+          "name": "Direct",
+          "sessions": 6539,
+          "sessions_change": 12.8,
+          "conversions": 147,
+          "revenue": 44448.55
+        },
+        {
+          "name": "Referral",
+          "sessions": 2938,
+          "sessions_change": 0.6,
+          "conversions": 66,
+          "revenue": 19030.73
+        },
+        {
+          "name": "Paid Search",
+          "sessions": 2908,
+          "sessions_change": -2.4,
+          "conversions": 80,
+          "revenue": 22446.41
+        },
+        {
+          "name": "Social",
+          "sessions": 1834,
+          "sessions_change": -5.3,
+          "conversions": 35,
+          "revenue": 11005.99
+        },
+        {
+          "name": "Email",
+          "sessions": 1155,
+          "sessions_change": 2.6,
+          "conversions": 31,
+          "revenue": 9273.54
+        }
+      ]
+    },
+    "competitive": {
+      "summary": {
+        "organic_keywords": {
+          "current": 2007,
+          "previous": 1945,
+          "change_pct": 3.2,
+          "direction": "up",
+          "improved": true
+        },
+        "traffic": {
+          "current": 22683,
+          "previous": 23252,
+          "change_pct": -2.4,
+          "direction": "down",
+          "improved": false
+        },
+        "ascore": {
+          "current": 44.0,
+          "previous": 43.0,
+          "change_pct": 2.3,
+          "direction": "up",
+          "improved": true
+        },
+        "backlinks": {
+          "current": 55076,
+          "previous": 54969,
+          "change_pct": 0.2,
+          "direction": "up",
+          "improved": true
+        },
+        "ref_domains": {
+          "current": 1079,
+          "previous": 1083,
+          "change_pct": -0.4,
+          "direction": "down",
+          "improved": false
+        }
+      },
+      "competitors": [
+        {
+          "name": "LegalZoom",
+          "visibility": 0.498,
+          "visibility_change": 1.0,
+          "ascore": 69,
+          "is_you": false
+        },
+        {
+          "name": "ZenBusiness",
+          "visibility": 0.492,
+          "visibility_change": 4.9,
+          "ascore": 72,
+          "is_you": false
+        },
+        {
+          "name": "Rocket Lawyer",
+          "visibility": 0.327,
+          "visibility_change": 2.2,
+          "ascore": 58,
+          "is_you": false
+        },
+        {
+          "name": "Bizee",
+          "visibility": 0.237,
+          "visibility_change": 6.8,
+          "ascore": 73,
+          "is_you": false
+        },
+        {
+          "name": "Northwind Legal",
+          "visibility": 0.206,
+          "visibility_change": -2.4,
+          "ascore": 44,
+          "is_you": true
+        }
+      ]
+    },
+    "ai_visibility": {
+      "summary": {
+        "visibility_score": {
+          "current": 33.7,
+          "previous": 35.0,
+          "change_pct": -3.7,
+          "direction": "down",
+          "improved": false
+        },
+        "share_of_voice": {
+          "current": 0.14,
+          "previous": 0.14,
+          "change_pct": 0.0,
+          "direction": "flat",
+          "improved": null
+        },
+        "mention_rate": {
+          "current": 0.26,
+          "previous": 0.27,
+          "change_pct": -2.6,
+          "direction": "down",
+          "improved": false
+        },
+        "avg_position": {
+          "current": 3.8,
+          "previous": 3.7,
+          "change_pct": 2.7,
+          "direction": "up",
+          "improved": false
+        }
+      },
+      "sentiment": {
+        "positive": 0.31,
+        "neutral": 0.62,
+        "negative": 0.07
+      },
+      "engines": [
+        {
+          "engine": "Copilot",
+          "visibility_score": 46.2,
+          "vs_change": -7.8,
+          "share_of_voice": 0.193,
+          "mention_rate": 0.364,
+          "avg_position": 3.7
+        },
+        {
+          "engine": "ChatGPT",
+          "visibility_score": 42.6,
+          "vs_change": -9.6,
+          "share_of_voice": 0.17,
+          "mention_rate": 0.363,
+          "avg_position": 4.9
+        },
+        {
+          "engine": "Perplexity",
+          "visibility_score": 31.8,
+          "vs_change": 1.9,
+          "share_of_voice": 0.116,
+          "mention_rate": 0.243,
+          "avg_position": 3.2
+        },
+        {
+          "engine": "Claude",
+          "visibility_score": 26.2,
+          "vs_change": -14.7,
+          "share_of_voice": 0.12,
+          "mention_rate": 0.211,
+          "avg_position": 3.1
+        },
+        {
+          "engine": "Google AI Overviews",
+          "visibility_score": 22.2,
+          "vs_change": -13.3,
+          "share_of_voice": 0.099,
+          "mention_rate": 0.199,
+          "avg_position": 3.6
+        }
+      ],
+      "competing_brands": [
+        {
+          "name": "ZenBusiness",
+          "share_of_voice": 0.268,
+          "top_engine": "Perplexity"
+        },
+        {
+          "name": "Rocket Lawyer",
+          "share_of_voice": 0.185,
+          "top_engine": "Copilot"
+        },
+        {
+          "name": "Bizee",
+          "share_of_voice": 0.15,
+          "top_engine": "Google AI Overviews"
+        },
+        {
+          "name": "LegalZoom",
+          "share_of_voice": 0.065,
+          "top_engine": "ChatGPT"
+        }
+      ],
+      "cited_pages": [
+        {
+          "title": "LLC Formation Service \u2014 Northwind",
+          "citations": 33,
+          "citations_change": -8.3,
+          "avg_position": 3.1
+        },
+        {
+          "title": "Free Operating Agreement Template",
+          "citations": 33,
+          "citations_change": 0.0,
+          "avg_position": 1.9
+        },
+        {
+          "title": "How to Form an LLC: Step-by-Step",
+          "citations": 30,
+          "citations_change": 20.0,
+          "avg_position": 1.7
+        },
+        {
+          "title": "Registered Agent Service",
+          "citations": 26,
+          "citations_change": 30.0,
+          "avg_position": 1.5
+        },
+        {
+          "title": "S Corp vs LLC: Which Is Right for You?",
+          "citations": 21,
+          "citations_change": 5.0,
+          "avg_position": 3.3
+        }
+      ],
+      "prompts": [
+        {
+          "prompt": "how do I form an llc?",
+          "engine": "chatgpt",
+          "mentioned": false,
+          "position": null,
+          "sentiment": "positive",
+          "excerpt": "...the response named several alternatives but did not mention Northwind...",
+          "competitors": []
+        },
+        {
+          "prompt": "best llc formation service",
+          "engine": "perplexity",
+          "mentioned": true,
+          "position": 5,
+          "sentiment": "neutral",
+          "excerpt": "...Northwind is often recommended here, described as one option to consider...",
+          "competitors": [
+            "ZenBusiness",
+            "Bizee"
+          ]
+        },
+        {
+          "prompt": "legalzoom alternatives",
+          "engine": "google_aio",
+          "mentioned": false,
+          "position": null,
+          "sentiment": "positive",
+          "excerpt": "...the response named LegalZoom, Rocket Lawyer but did not mention Northwind...",
+          "competitors": [
+            "LegalZoom",
+            "Rocket Lawyer"
+          ]
+        },
+        {
+          "prompt": "do I need a registered agent?",
+          "engine": "chatgpt",
+          "mentioned": true,
+          "position": 2,
+          "sentiment": "neutral",
+          "excerpt": "...Northwind is often recommended here, described as one option to consider...",
+          "competitors": [
+            "ZenBusiness",
+            "Bizee"
+          ]
+        },
+        {
+          "prompt": "s corp vs llc for a small business",
+          "engine": "google_aio",
+          "mentioned": true,
+          "position": 1,
+          "sentiment": "neutral",
+          "excerpt": "...Northwind is often recommended here, described as one option to consider...",
+          "competitors": [
+            "ZenBusiness",
+            "Bizee"
+          ]
+        },
+        {
+          "prompt": "cheapest way to register a trademark",
+          "engine": "chatgpt",
+          "mentioned": true,
+          "position": 5,
+          "sentiment": "neutral",
+          "excerpt": "...Northwind is often recommended here, described as one option to consider...",
+          "competitors": [
+            "LegalZoom",
+            "Rocket Lawyer"
+          ]
+        }
+      ]
+    },
+    "content": {
+      "platform": "Contentful",
+      "total_published": 174,
+      "tracked": 10,
+      "published_recent": 0,
+      "stale_count": 9,
+      "refresh_candidates": [
+        {
+          "title": "How to Get an EIN Number",
+          "url": "https://northwindlegal.com/blog/how-to-get-an-ein-number",
+          "published_days_ago": 480,
+          "modified_days_ago": 270,
+          "monthly_traffic": 5252
+        },
+        {
+          "title": "How to Form an LLC: Step-by-Step",
+          "url": "https://northwindlegal.com/blog/how-to-form-an-llc-step-by-step",
+          "published_days_ago": 453,
+          "modified_days_ago": 362,
+          "monthly_traffic": 4970
+        },
+        {
+          "title": "Annual Report Filing Deadlines",
+          "url": "https://northwindlegal.com/blog/annual-report-filing-deadlines",
+          "published_days_ago": 820,
+          "modified_days_ago": 504,
+          "monthly_traffic": 4741
+        },
+        {
+          "title": "Dissolving an LLC the Right Way",
+          "url": "https://northwindlegal.com/blog/dissolving-an-llc-the-right-way",
+          "published_days_ago": 336,
+          "modified_days_ago": 336,
+          "monthly_traffic": 3991
+        },
+        {
+          "title": "Trademark vs Copyright vs Patent",
+          "url": "https://northwindlegal.com/blog/trademark-vs-copyright-vs-patent",
+          "published_days_ago": 738,
+          "modified_days_ago": 284,
+          "monthly_traffic": 3149
+        }
+      ]
+    },
+    "narrative": {
+      "executive_summary": "October delivered strong business outcomes: revenue increased 7.1% to $189,482 and conversions rose 6.0% to 605, despite a 3.4% decline in organic clicks. AI visibility deteriorated meaningfully, with the overall score dropping 3.7% to 33.7, driven by significant declines in Copilot (-7.8%), ChatGPT (-9.6%), Claude (-14.7%), and Google AI Overviews (-13.3%). While site sessions grew 4.4% and traditional organic search held steady, the weakening AI presence and average organic position drop of 4.2% (to 14.9) require immediate attention to protect future growth.",
+      "highlights": [
+        {
+          "title": "Revenue growth accelerated",
+          "detail": "Revenue reached $189,482, up 7.1% month-over-month, outpacing the 6.0% conversion increase and demonstrating improved monetization per customer."
+        },
+        {
+          "title": "AI visibility declined across major engines",
+          "detail": "Overall AI visibility score dropped 3.7% to 33.7, with Claude down 14.7%, Google AI Overviews down 13.3%, and ChatGPT down 9.6%, signaling eroding presence in AI-driven search."
+        },
+        {
+          "title": "Organic position weakened materially",
+          "detail": "Average organic position fell 4.2% to 14.9, the primary driver behind the 3.4% decline in clicks and 3.2% drop in impressions."
+        },
+        {
+          "title": "Direct traffic surged unexpectedly",
+          "detail": "Direct sessions jumped 12.8% to 6,539, the strongest channel growth this period, suggesting increased brand recognition or repeat visitor behavior."
+        }
+      ],
+      "section_insights": {
+        "organic": "Organic search performance softened in October, with clicks declining 3.4% to 14,817 and impressions down 3.2% to 375,544, both driven by a 4.2% decline in average position to 14.9. Key service terms like 'llc formation service' (down 3.4 positions) and 'ein number application' (down 3.1 positions) lost ground, while 'registered agent service' (up 2.8 positions) and 'how to form an llc' (up 1.6 positions) showed meaningful gains. Despite organic search headwinds, overall site sessions grew 4.4% to 27,919, lifted by strong Direct (+12.8%) and Organic Search (+4.7%) channel performance.",
+        "ai_visibility": "AI visibility deteriorated across the board, with the overall score falling 3.7% to 33.7, the most significant decline we've tracked for Northwind Legal. Four of five major engines showed material declines: Claude led losses at -14.7%, followed by Google AI Overviews at -13.3%, ChatGPT at -9.6%, and Copilot at -7.8%, while only Perplexity improved (+1.9% to 31.8). With competitors ZenBusiness (26.8% share of voice), Rocket Lawyer (18.5%), and Bizee (15.0%) all commanding higher AI presence than Northwind's 14.0%, the brand is losing ground in the AI-driven discovery layer that increasingly influences purchase decisions in the legal services category.",
+        "competitive": "Northwind Legal maintains fifth position in organic visibility at 0.206, trailing LegalZoom (0.498), ZenBusiness (0.492), Rocket Lawyer (0.327), and Bizee (0.237). The Authority Score improved modestly to 44.0 (+2.3%), and the site now ranks for 2,007 organic keywords (+3.2% or 62 additional terms), though estimated competitive traffic declined 2.4% to 22,683. The backlink profile remains essentially flat with 55,076 total links (+0.2%) from 1,079 referring domains (-0.4%), indicating limited new authority acquisition this period.",
+        "content": "Nine of ten tracked content pieces are flagged as stale, with top-performing articles last updated between 9 and 17 months ago despite collectively driving over 22,000 monthly visits. The five highest-traffic refresh candidates\u2014'How to Get an EIN Number' (5,252 monthly visits, last modified 270 days ago), 'How to Form an LLC' (4,970 visits, 362 days stale), and 'Annual Report Filing Deadlines' (4,741 visits, 504 days stale)\u2014represent immediate optimization opportunities directly aligned with declining keyword positions in 'ein number application' and 'llc formation service'. With zero new content published in October and substantial aging across the portfolio, content staleness likely contributes to both the organic position decline and weakening AI visibility."
+      },
+      "recommendations": [
+        {
+          "title": "Execute emergency refresh of top five stale content pieces",
+          "detail": "Prioritize updating 'How to Get an EIN Number', 'How to Form an LLC', and 'Annual Report Filing Deadlines'\u2014collectively 15,000+ monthly visits but 9-17 months stale\u2014with current information, enhanced E-E-A-T signals, and structured data to address both the organic position decline and AI engine indexing requirements.",
+          "priority": "High"
+        },
+        {
+          "title": "Launch targeted AI visibility recovery program",
+          "detail": "Address the 3.7% AI visibility decline by optimizing content specifically for Claude, Google AI Overviews, and ChatGPT using structured Q&A formats, authoritative citations, and clear entity associations, focusing on high-intent queries where competitors dominate AI share of voice.",
+          "priority": "High"
+        },
+        {
+          "title": "Diagnose and reverse 'llc formation service' position loss",
+          "detail": "Investigate the 3.4-position drop for this core commercial term through on-page optimization, internal linking reinforcement, and content depth expansion, as this likely drives meaningful conversion and revenue impact given the legal services purchase funnel.",
+          "priority": "High"
+        },
+        {
+          "title": "Establish monthly content publishing cadence",
+          "detail": "Institute a minimum two-article monthly publishing rhythm to combat the portfolio-wide staleness issue, targeting long-tail variations around declining keywords and emerging legal service queries to build topical authority and feed AI engine training data.",
+          "priority": "Medium"
+        },
+        {
+          "title": "Capitalize on Direct traffic momentum with brand study",
+          "detail": "The 12.8% surge in Direct sessions warrants investigation\u2014conduct user surveys or analyze entry pages to understand whether this represents repeat customer behavior, offline marketing effectiveness, or brand search shifting to direct navigation, then amplify the successful driver.",
+          "priority": "Low"
+        }
+      ]
+    }
+  }
+}

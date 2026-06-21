@@ -1,57 +1,91 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="hero">
-  <h1>Build a client report</h1>
-  <p class="lede">
-    Pull GSC, GA4, Semrush, AI search visibility and CMS data, compute
-    period-over-period changes, and let Claude draft the narrative.
-  </p>
-</section>
+<div class="home-grid">
+  <section class="home-left">
+    {% if error %}
+    <div class="alert">{{ error }}</div>
+    {% endif %}
 
-{% if error %}
-<div class="alert">{{ error }}</div>
-{% endif %}
+    <form class="card form" id="report-form" action="{{ url_for('report') }}" method="post">
+      <div class="form-head">
+        <h2>Report generator</h2>
+        <p>Pull GSC, GA4, Semrush, AI search visibility and CMS data, and let Claude draft the narrative.</p>
+      </div>
 
-<form class="card form" id="report-form" action="{{ url_for('report') }}" method="post">
-  <div class="field">
-    <label for="client-search">Client</label>
-    <div class="combo" id="client-combo">
-      <input type="text" id="client-search" class="search" placeholder="Search clients…"
-             autocomplete="off" role="combobox" aria-expanded="false" aria-controls="client-options">
-      <input type="hidden" name="client" id="client-value" required>
-      <ul class="combo-panel" id="client-options" role="listbox">
-        {% for c in clients %}
-        <li class="combo-option" role="option" data-value="{{ c.id }}"
-            data-label="{{ c.name }} — {{ c.domain }}">
-          {{ c.name }} <span class="combo-sub">{{ c.domain }}</span>
-        </li>
-        {% endfor %}
-      </ul>
+      <div class="field">
+        <label for="client-search">Client</label>
+        <div class="combo" id="client-combo">
+          <input type="text" id="client-search" class="search" placeholder="Search clients…"
+                 autocomplete="off" role="combobox" aria-expanded="false" aria-controls="client-options">
+          <input type="hidden" name="client" id="client-value" required>
+          <ul class="combo-panel" id="client-options" role="listbox">
+            {% for c in clients %}
+            <li class="combo-option" role="option" data-value="{{ c.id }}"
+                data-label="{{ c.name }} — {{ c.domain }}">
+              {{ c.name }} <span class="combo-sub">{{ c.domain }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <p class="hint">Demo build — {{ clients|length }} sample clients. In production, search your full client book.</p>
+      </div>
+
+      <div class="field">
+        <label for="period">Reporting period</label>
+        <select id="period" name="period" required>
+          {% for p in periods %}
+          <option value="{{ p.value }}">{{ p.label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="cadence">Cadence</label>
+        <select id="cadence" name="cadence">
+          {% for cad in cadences %}
+          <option value="{{ cad }}" {% if cad == default_cadence %}selected{% endif %}>{{ cad }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <button type="submit" class="btn" id="generate-btn">Generate report</button>
+      <p class="note">Generates a draft for review. Claude writes the insights; you approve and send.</p>
+    </form>
+  </section>
+
+  <aside class="home-right">
+    <div class="card panel-reports">
+      <h2 class="panel-title">Generated reports</h2>
+      {% if reports %}
+      <div class="reports-scroll">
+        <table class="reports-table">
+          <thead>
+            <tr><th>Report</th><th>Period</th><th>Generated</th><th></th></tr>
+          </thead>
+          <tbody>
+            {% for r in reports %}
+            <tr>
+              <td><input class="rep-name" value="{{ r.name }}" data-id="{{ r.id }}" aria-label="Report name"></td>
+              <td class="rep-period">{{ r.period }}</td>
+              <td class="rep-date">{{ r.created_date or r.created_display }}<span class="rep-time">{{ r.created_time }}</span></td>
+              <td class="rep-actions">
+                <a class="rep-open" href="{{ url_for('view_report', report_id=r.id) }}">Open</a>
+                <form method="post" action="{{ url_for('delete_report', report_id=r.id) }}"
+                      onsubmit="return confirm('Delete this report?')">
+                  <button type="submit" class="rep-del" aria-label="Delete">✕</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <p class="empty">No reports yet. Generate one and it’ll appear here.</p>
+      {% endif %}
     </div>
-    <p class="hint">Demo build — {{ clients|length }} sample clients. In production, search your full client book.</p>
-  </div>
-
-  <div class="field">
-    <label for="period">Reporting period</label>
-    <select id="period" name="period" required>
-      {% for p in periods %}
-      <option value="{{ p.value }}">{{ p.label }}</option>
-      {% endfor %}
-    </select>
-  </div>
-
-  <div class="field">
-    <label for="cadence">Cadence</label>
-    <select id="cadence" name="cadence">
-      {% for cad in cadences %}
-      <option value="{{ cad }}" {% if cad == default_cadence %}selected{% endif %}>{{ cad }}</option>
-      {% endfor %}
-    </select>
-  </div>
-
-  <button type="submit" class="btn" id="generate-btn">Generate report</button>
-  <p class="note">Generates a draft for review. Claude writes the insights; you approve and send.</p>
-</form>
+  </aside>
+</div>
 {% endblock %}
 
 {% block scripts %}
@@ -92,7 +126,6 @@
       return options.filter(function (o) { return o.dataset.value === hidden.value; })[0];
     }
 
-    // On focus, show the whole list (and select any existing text so typing replaces it).
     input.addEventListener("focus", function () { input.select(); showAll(); open(); });
     input.addEventListener("input", function () { filter(); open(); highlight(-1); });
     input.addEventListener("keydown", function (e) {
@@ -104,34 +137,50 @@
       } else if (e.key === "Escape") { close(); }
     });
     input.addEventListener("blur", function () {
-      // On blur, reflect the actual selection: its label if one was picked,
-      // otherwise empty so the placeholder shows again.
       setTimeout(function () { var c = current(); input.value = c ? c.dataset.label : ""; close(); }, 120);
     });
     options.forEach(function (o) {
       o.addEventListener("mousedown", function (e) { e.preventDefault(); select(o); });
     });
     document.addEventListener("click", function (e) { if (!combo.contains(e.target)) close(); });
-    // No default selection — the field starts empty and required.
   })();
 
-  // Loading state — building a report makes a Claude call that takes a few
-  // seconds. Show progress on the button so the wait doesn't feel broken.
+  // Loading state on submit — the Claude call takes a few seconds.
   (function () {
     var form = document.getElementById("report-form");
     var btn = document.getElementById("generate-btn");
     if (!form || !btn) return;
     form.addEventListener("submit", function () {
-      // Fires only after the browser's required-field validation passes.
       btn.disabled = true;
       btn.classList.add("loading");
       btn.innerHTML = '<span class="spinner"></span>Generating report…';
     });
-    // Reset if the page is restored from the back/forward cache.
     window.addEventListener("pageshow", function () {
       btn.disabled = false;
       btn.classList.remove("loading");
       btn.textContent = "Generate report";
+    });
+  })();
+
+  // Inline rename of saved reports — saves on change/blur.
+  (function () {
+    document.querySelectorAll(".rep-name").forEach(function (input) {
+      var last = input.value;
+      function save() {
+        var name = input.value.trim();
+        if (!name || name === last) { input.value = name || last; return; }
+        var body = new URLSearchParams({ name: name });
+        fetch("/reports/" + input.dataset.id + "/rename", { method: "POST", body: body })
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            last = d.name; input.value = d.name;
+            input.classList.add("saved");
+            setTimeout(function () { input.classList.remove("saved"); }, 900);
+          })
+          .catch(function () { input.value = last; });
+      }
+      input.addEventListener("blur", save);
+      input.addEventListener("keydown", function (e) { if (e.key === "Enter") input.blur(); });
     });
   })();
 </script>
