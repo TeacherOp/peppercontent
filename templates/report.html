@@ -82,11 +82,11 @@
     <div class="grid-2">
       <div class="panel">
         <h3>Visibility by engine</h3>
-        <canvas id="enginesChart" height="200"></canvas>
+        <div class="chart-box"><canvas id="enginesChart"></canvas></div>
       </div>
       <div class="panel">
         <h3>Share of voice vs competitors</h3>
-        <canvas id="sovChart" height="200"></canvas>
+        <div class="chart-box"><canvas id="sovChart"></canvas></div>
       </div>
     </div>
     <div class="grid-2">
@@ -178,7 +178,7 @@
       {{ card('Revenue', report.traffic.summary.revenue, 'money') }}
     </div>
     <div class="grid-2">
-      <div class="panel"><h3>Sessions by channel</h3><canvas id="channelChart" height="200"></canvas></div>
+      <div class="panel"><h3>Sessions by channel</h3><div class="chart-box"><canvas id="channelChart"></canvas></div></div>
       <div class="panel">
         <h3>Channel detail</h3>
         <table>
