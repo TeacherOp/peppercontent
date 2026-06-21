@@ -43,6 +43,8 @@ right, plus the rendered, print-to-PDF report at its own URL (`/reports/<id>`)
 with a draft tag, edit button and an Approve & send action. Every generated report is saved
 and reopenable from the library.
 
+![Home — report generator on the left, Generated reports library on the right](images/home.png)
+
 ## 4. What the product does
 
 1. **Connects the sources.** Treated as black-box APIs. The prototype ships a
@@ -75,6 +77,8 @@ and reopenable from the library.
 | Content health | WordPress / Webflow / Contentful | inventory, recently published, stale count, refresh candidates |
 | Executive summary & recommendations | Calude AI ( or any other suitable AI )  over all of the above | narrative + prioritised actions |
 
+![A generated client report](images/report.png)
+
 ## 6. Report library & persistence
 
 Generated reports are saved so a manager never loses work and can revisit,
@@ -98,6 +102,8 @@ re-send, or compare past periods.
   provides the per-report timestamps, and
   is the foundation for production features like scheduled auto-drafts and
   period-over-period comparison.
+
+![Renaming a saved report inline in the library](images/rename_report.png)
 
 ## 7. Editing & curation (review mode)
 
@@ -137,6 +143,8 @@ the report's stored JSON; reopening shows the curated version (no re-generation)
   client-facing output - while preserving the time saved on the first draft. The
   **edit ratio** this produces is also a core quality signal:
   the less managers need to change, the more the draft is trusted, and overtime with confidence the whole process can be made faster and even automated.
+
+![Editing a report in place — editable text, add/remove blocks, and Edit with AI](images/edit_report.png)
 
 ## 8. Data sources used (and why)
 
