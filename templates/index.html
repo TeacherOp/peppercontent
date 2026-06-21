@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <h1>Build a client report</h1>
+  <p class="lede">
+    Pull GSC, GA4, Semrush, AI search visibility and CMS data, compute
+    period-over-period changes, and let Claude draft the narrative — in seconds,
+    not hours.
+  </p>
+</section>
+
+{% if error %}
+<div class="alert">{{ error }}</div>
+{% endif %}
+
+<form class="card form" action="{{ url_for('report') }}" method="post">
+  <div class="field">
+    <label for="client">Client</label>
+    <select id="client" name="client" required>
+      {% for c in clients %}
+      <option value="{{ c.id }}">{{ c.name }} — {{ c.domain }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="period">Reporting period</label>
+    <select id="period" name="period" required>
+      {% for p in periods %}
+      <option value="{{ p.value }}">{{ p.label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="cadence">Cadence</label>
+    <select id="cadence" name="cadence">
+      {% for cad in cadences %}
+      <option value="{{ cad }}" {% if cad == default_cadence %}selected{% endif %}>{{ cad }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <button type="submit" class="btn">Generate report</button>
+  <p class="note">Generates a draft for review. Claude writes the insights; you approve and send.</p>
+</form>
+{% endblock %}

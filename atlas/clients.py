@@ -1,0 +1,188 @@
+"""The three demo clients.
+
+Each carries the stable identity the mock sources need: the keywords it ranks
+for, its top pages, competitors, the AI prompts it's tracked against, and a
+content catalogue. The numbers attached to these per period are generated in
+the mock_api modules.
+"""
+
+CLIENTS = [
+    {
+        "id": "acme",
+        "name": "Acme Analytics",
+        "domain": "acme.com",
+        "brand": "Acme",
+        "market": "us",
+        "industry": "B2B SaaS — product analytics",
+        "cms": "wordpress",
+        "scale": 1.0,
+        "aov": 1450,        # annual contract value proxy
+        "cpc_base": 6.2,
+        "keywords": [
+            ("product analytics", "informational"),
+            ("product analytics tool", "commercial"),
+            ("customer data platform", "informational"),
+            ("funnel analysis software", "commercial"),
+            ("user retention analytics", "informational"),
+            ("event tracking tool", "commercial"),
+            ("session replay software", "commercial"),
+            ("self-serve analytics", "informational"),
+            ("mixpanel alternative", "commercial"),
+            ("product led growth metrics", "informational"),
+        ],
+        "pages": [
+            ("/product-analytics-guide", "The Complete Guide to Product Analytics"),
+            ("/features/funnels", "Funnel Analysis — Acme"),
+            ("/features/retention", "Retention Analysis — Acme"),
+            ("/blog/north-star-metric", "How to Choose a North Star Metric"),
+            ("/compare/mixpanel-alternative", "Acme vs Mixpanel"),
+            ("/blog/activation-rate", "Measuring Activation Rate the Right Way"),
+            ("/pricing", "Pricing — Acme"),
+            ("/blog/plg-metrics", "12 Product-Led Growth Metrics That Matter"),
+        ],
+        "competitors": ["Mixpanel", "Amplitude", "Heap", "PostHog"],
+        "ai_prompts": [
+            "what is the best product analytics tool?",
+            "mixpanel vs amplitude vs acme",
+            "best mixpanel alternative for startups",
+            "how do I measure user retention?",
+            "what is a customer data platform?",
+            "cheapest product analytics for early-stage saas",
+            "best tool for funnel analysis",
+        ],
+        "articles": [
+            "The Complete Guide to Product Analytics",
+            "How to Choose a North Star Metric",
+            "Measuring Activation Rate the Right Way",
+            "12 Product-Led Growth Metrics That Matter",
+            "Cohort Analysis Explained",
+            "Setting Up Event Tracking Without Engineers",
+            "What Is a Customer Data Platform?",
+            "Reducing Churn with Behavioural Signals",
+            "A/B Testing Pitfalls to Avoid",
+            "Building a Self-Serve Analytics Culture",
+        ],
+    },
+    {
+        "id": "verdant",
+        "name": "Verdant Skincare",
+        "domain": "verdantskin.com",
+        "brand": "Verdant",
+        "market": "uk",
+        "industry": "DTC beauty & skincare ecommerce",
+        "cms": "webflow",
+        "scale": 0.62,
+        "aov": 48,
+        "cpc_base": 1.4,
+        "keywords": [
+            ("vitamin c serum", "transactional"),
+            ("niacinamide serum", "transactional"),
+            ("best moisturiser for dry skin", "commercial"),
+            ("retinol for beginners", "informational"),
+            ("vegan skincare", "commercial"),
+            ("hyaluronic acid benefits", "informational"),
+            ("sensitive skin routine", "informational"),
+            ("the ordinary alternative", "commercial"),
+            ("spf 50 face cream", "transactional"),
+            ("how to layer skincare", "informational"),
+        ],
+        "pages": [
+            ("/products/vitamin-c-serum", "Vitamin C Brightening Serum"),
+            ("/products/niacinamide-serum", "Niacinamide 10% Serum"),
+            ("/blog/retinol-for-beginners", "Retinol for Beginners: A Gentle Start"),
+            ("/collections/moisturisers", "Moisturisers — Verdant"),
+            ("/blog/skincare-layering", "How to Layer Your Skincare"),
+            ("/products/spf-50", "Daily Defence SPF 50"),
+            ("/blog/sensitive-skin-routine", "A Routine for Sensitive Skin"),
+            ("/collections/vegan", "Vegan Skincare — Verdant"),
+        ],
+        "competitors": ["The Ordinary", "CeraVe", "Paula's Choice", "Versed"],
+        "ai_prompts": [
+            "best vitamin c serum uk",
+            "affordable vegan skincare brands",
+            "the ordinary alternatives",
+            "how to start using retinol",
+            "best moisturiser for dry sensitive skin",
+            "cruelty free skincare uk",
+            "what order to apply skincare",
+        ],
+        "articles": [
+            "Retinol for Beginners: A Gentle Start",
+            "How to Layer Your Skincare",
+            "A Routine for Sensitive Skin",
+            "The Truth About Hyaluronic Acid",
+            "Why We Went 100% Vegan",
+            "Vitamin C: Morning or Night?",
+            "Decoding SPF Labels",
+            "Niacinamide vs Vitamin C",
+            "Building a Minimalist Routine",
+            "Ingredients to Avoid for Acne-Prone Skin",
+        ],
+    },
+    {
+        "id": "northwind",
+        "name": "Northwind Legal",
+        "domain": "northwindlegal.com",
+        "brand": "Northwind",
+        "market": "us",
+        "industry": "Online legal services",
+        "cms": "contentful",
+        "scale": 0.45,
+        "aov": 310,
+        "cpc_base": 9.8,
+        "keywords": [
+            ("how to form an llc", "informational"),
+            ("llc formation service", "commercial"),
+            ("registered agent service", "commercial"),
+            ("trademark registration", "transactional"),
+            ("operating agreement template", "informational"),
+            ("s corp vs llc", "informational"),
+            ("business license requirements", "informational"),
+            ("legalzoom alternative", "commercial"),
+            ("nonprofit incorporation", "transactional"),
+            ("ein number application", "informational"),
+        ],
+        "pages": [
+            ("/llc/how-to-form", "How to Form an LLC: Step-by-Step"),
+            ("/services/llc-formation", "LLC Formation Service — Northwind"),
+            ("/services/registered-agent", "Registered Agent Service"),
+            ("/blog/s-corp-vs-llc", "S Corp vs LLC: Which Is Right for You?"),
+            ("/templates/operating-agreement", "Free Operating Agreement Template"),
+            ("/services/trademark", "Trademark Registration — Northwind"),
+            ("/blog/business-license-guide", "Business License Requirements by State"),
+            ("/compare/legalzoom-alternative", "Northwind vs LegalZoom"),
+        ],
+        "competitors": ["LegalZoom", "Rocket Lawyer", "ZenBusiness", "Bizee"],
+        "ai_prompts": [
+            "how do I form an llc?",
+            "best llc formation service",
+            "legalzoom alternatives",
+            "do I need a registered agent?",
+            "s corp vs llc for a small business",
+            "cheapest way to register a trademark",
+            "how to get an ein number",
+        ],
+        "articles": [
+            "How to Form an LLC: Step-by-Step",
+            "S Corp vs LLC: Which Is Right for You?",
+            "Free Operating Agreement Template",
+            "Business License Requirements by State",
+            "Do You Need a Registered Agent?",
+            "Trademark vs Copyright vs Patent",
+            "How to Get an EIN Number",
+            "Choosing a Business Structure",
+            "Annual Report Filing Deadlines",
+            "Dissolving an LLC the Right Way",
+        ],
+    },
+]
+
+_BY_ID = {c["id"]: c for c in CLIENTS}
+
+
+def all_clients():
+    return CLIENTS
+
+
+def get_client(client_id):
+    return _BY_ID.get(client_id)

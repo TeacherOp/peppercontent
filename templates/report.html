@@ -1,0 +1,286 @@
+{% extends "base.html" %}
+{% block title %}{{ report.client.name }} — {{ report.period.label }} | Atlas{% endblock %}
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+{% endblock %}
+
+{# ---- reusable bits ---- #}
+{% macro badge(d) %}
+  {% set cls = 'flat' %}
+  {% if d.improved is true %}{% set cls = 'good' %}{% elif d.improved is false %}{% set cls = 'bad' %}{% endif %}
+  {% set arrow = '→' %}
+  {% if d.direction == 'up' %}{% set arrow = '▲' %}{% elif d.direction == 'down' %}{% set arrow = '▼' %}{% endif %}
+  <span class="badge {{ cls }}">{{ arrow }} {{ d.change_pct | signed }}%</span>
+{% endmacro %}
+
+{% macro card(label, d, fmt='num') %}
+  <div class="metric">
+    <div class="metric-label">{{ label }}</div>
+    <div class="metric-value">
+      {% if fmt == 'thousands' %}{{ d.current | thousands }}
+      {% elif fmt == 'pct' %}{{ d.current | pct }}
+      {% elif fmt == 'money' %}{{ d.current | money }}
+      {% else %}{{ d.current }}{% endif %}
+    </div>
+    {{ badge(d) }}
+    <div class="metric-prev">vs
+      {% if fmt == 'thousands' %}{{ d.previous | thousands }}
+      {% elif fmt == 'pct' %}{{ d.previous | pct }}
+      {% elif fmt == 'money' %}{{ d.previous | money }}
+      {% else %}{{ d.previous }}{% endif %}
+    </div>
+  </div>
+{% endmacro %}
+
+{% macro card_static(label, value) %}
+  <div class="metric"><div class="metric-label">{{ label }}</div><div class="metric-value">{{ value }}</div></div>
+{% endmacro %}
+
+{% block content %}
+<div class="actionbar no-print">
+  <a href="{{ url_for('index') }}" class="link">← New report</a>
+  <div class="actions">
+    <span class="draft-tag">Draft — for review</span>
+    <button class="btn ghost" onclick="window.print()">Export PDF</button>
+    <button class="btn" onclick="approve(this)">Approve &amp; send</button>
+  </div>
+</div>
+
+<article class="report">
+  <header class="report-head">
+    <div>
+      <h1>{{ report.client.name }}</h1>
+      <p class="sub">{{ report.client.industry }} · {{ report.client.domain }} · {{ report.client.market }}</p>
+    </div>
+    <div class="period-tag">
+      <div class="period-main">{{ report.period.label }}</div>
+      <div class="period-sub">{{ report.period.cadence }} · vs {{ report.period.compare_label }}</div>
+    </div>
+  </header>
+
+  {# ---- executive summary ---- #}
+  <section class="block summary-block">
+    <h2>Executive summary</h2>
+    <p class="exec">{{ report.narrative.executive_summary }}</p>
+    <div class="highlights">
+      {% for h in report.narrative.highlights %}
+      <div class="highlight"><strong>{{ h.title }}</strong><span>{{ h.detail }}</span></div>
+      {% endfor %}
+    </div>
+  </section>
+
+  {# ---- AI search visibility (the differentiator) ---- #}
+  <section class="block">
+    <div class="block-head"><h2>AI search visibility</h2><span class="tag-ai">Pepper focus</span></div>
+    <div class="metrics">
+      {{ card('Visibility score', report.ai_visibility.summary.visibility_score) }}
+      {{ card('Share of voice', report.ai_visibility.summary.share_of_voice, 'pct') }}
+      {{ card('Mention rate', report.ai_visibility.summary.mention_rate, 'pct') }}
+      {{ card('Avg. position', report.ai_visibility.summary.avg_position) }}
+    </div>
+    <p class="insight">{{ report.narrative.section_insights.ai_visibility }}</p>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>Visibility by engine</h3>
+        <canvas id="enginesChart" height="200"></canvas>
+      </div>
+      <div class="panel">
+        <h3>Share of voice vs competitors</h3>
+        <canvas id="sovChart" height="200"></canvas>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>Pages cited by AI engines</h3>
+        <table>
+          <thead><tr><th>Page</th><th>Citations</th><th>Chg</th><th>Avg pos</th></tr></thead>
+          <tbody>
+            {% for p in report.ai_visibility.cited_pages %}
+            <tr><td>{{ p.title }}</td><td>{{ p.citations }}</td>
+              <td class="{{ 'pos' if p.citations_change >= 0 else 'neg' }}">{{ p.citations_change | signed }}%</td>
+              <td>{{ p.avg_position }}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="panel">
+        <h3>Sentiment of AI mentions</h3>
+        <div class="sentiment">
+          <div class="sbar"><span class="s-pos" style="width: {{ (report.ai_visibility.sentiment.positive * 100) }}%"></span>
+            <span class="s-neu" style="width: {{ (report.ai_visibility.sentiment.neutral * 100) }}%"></span>
+            <span class="s-neg" style="width: {{ (report.ai_visibility.sentiment.negative * 100) }}%"></span></div>
+          <ul class="legend">
+            <li><i class="d-pos"></i> Positive {{ report.ai_visibility.sentiment.positive | pct(0) }}</li>
+            <li><i class="d-neu"></i> Neutral {{ report.ai_visibility.sentiment.neutral | pct(0) }}</li>
+            <li><i class="d-neg"></i> Negative {{ report.ai_visibility.sentiment.negative | pct(0) }}</li>
+          </ul>
+        </div>
+        <h3 style="margin-top:18px">Sample prompts</h3>
+        <ul class="prompts">
+          {% for pr in report.ai_visibility.prompts[:4] %}
+          <li>
+            <span class="prompt-q">“{{ pr.prompt }}”</span>
+            <span class="chip {{ 'hit' if pr.mentioned else 'miss' }}">{{ pr.engine }} · {{ 'mentioned' if pr.mentioned else 'not mentioned' }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {# ---- organic search ---- #}
+  <section class="block">
+    <h2>Organic search performance</h2>
+    <div class="metrics">
+      {{ card('Clicks', report.organic.summary.clicks, 'thousands') }}
+      {{ card('Impressions', report.organic.summary.impressions, 'thousands') }}
+      {{ card('CTR', report.organic.summary.ctr, 'pct') }}
+      {{ card('Avg. position', report.organic.summary.position) }}
+    </div>
+    <p class="insight">{{ report.narrative.section_insights.organic }}</p>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>Top queries</h3>
+        <table>
+          <thead><tr><th>Query</th><th>Clicks</th><th>Pos</th><th>Δ pos</th></tr></thead>
+          <tbody>
+            {% for q in report.organic.top_queries %}
+            <tr><td>{{ q.phrase }}</td><td>{{ q.clicks | thousands }}</td><td>{{ q.position }}</td>
+              <td class="{{ 'pos' if q.position_delta > 0 else ('neg' if q.position_delta < 0 else '') }}">{{ q.position_delta | signed }}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="panel">
+        <h3>Biggest movers</h3>
+        <div class="movers">
+          <div>
+            <h4 class="pos">Gained</h4>
+            <ul>{% for q in report.organic.gained %}<li>{{ q.phrase }} <span class="pos">+{{ q.position_delta }}</span></li>{% endfor %}</ul>
+          </div>
+          <div>
+            <h4 class="neg">Lost</h4>
+            <ul>{% for q in report.organic.lost %}<li>{{ q.phrase }} <span class="neg">{{ q.position_delta }}</span></li>{% endfor %}</ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {# ---- traffic & conversions ---- #}
+  <section class="block">
+    <h2>Traffic &amp; conversions</h2>
+    <div class="metrics">
+      {{ card('Sessions', report.traffic.summary.sessions, 'thousands') }}
+      {{ card('Users', report.traffic.summary.totalUsers, 'thousands') }}
+      {{ card('Engagement', report.traffic.summary.engagementRate, 'pct') }}
+      {{ card('Conversions', report.traffic.summary.conversions, 'thousands') }}
+      {{ card('Revenue', report.traffic.summary.revenue, 'money') }}
+    </div>
+    <div class="grid-2">
+      <div class="panel"><h3>Sessions by channel</h3><canvas id="channelChart" height="200"></canvas></div>
+      <div class="panel">
+        <h3>Channel detail</h3>
+        <table>
+          <thead><tr><th>Channel</th><th>Sessions</th><th>Chg</th><th>Conv</th><th>Revenue</th></tr></thead>
+          <tbody>
+            {% for c in report.traffic.channels %}
+            <tr><td>{{ c.name }}</td><td>{{ c.sessions | thousands }}</td>
+              <td class="{{ 'pos' if c.sessions_change >= 0 else 'neg' }}">{{ c.sessions_change | signed }}%</td>
+              <td>{{ c.conversions | thousands }}</td><td>{{ c.revenue | money }}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  {# ---- competitive ---- #}
+  <section class="block">
+    <h2>Competitive position</h2>
+    <div class="metrics">
+      {{ card('Organic keywords', report.competitive.summary.organic_keywords, 'thousands') }}
+      {{ card('Est. traffic', report.competitive.summary.traffic, 'thousands') }}
+      {{ card('Authority score', report.competitive.summary.ascore) }}
+      {{ card('Ref. domains', report.competitive.summary.ref_domains, 'thousands') }}
+    </div>
+    <p class="insight">{{ report.narrative.section_insights.competitive }}</p>
+    <div class="panel">
+      <table>
+        <thead><tr><th>Domain</th><th>Visibility</th><th>Chg</th><th>Authority</th></tr></thead>
+        <tbody>
+          {% for c in report.competitive.competitors %}
+          <tr class="{{ 'you' if c.is_you }}"><td>{{ c.name }}{% if c.is_you %} <span class="you-tag">you</span>{% endif %}</td>
+            <td>{{ (c.visibility * 100) | round(1) }}%</td>
+            <td class="{{ 'pos' if c.visibility_change >= 0 else 'neg' }}">{{ c.visibility_change | signed }}%</td>
+            <td>{{ c.ascore }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  {# ---- content ---- #}
+  <section class="block">
+    <h2>Content health</h2>
+    <div class="metrics">
+      {{ card_static('Platform', report.content.platform) }}
+      {{ card_static('Published total', report.content.total_published | thousands) }}
+      {{ card_static('New (30d)', report.content.published_recent) }}
+      {{ card_static('Stale pages', report.content.stale_count) }}
+    </div>
+    <p class="insight">{{ report.narrative.section_insights.content }}</p>
+    {% if report.content.refresh_candidates %}
+    <div class="panel">
+      <h3>Refresh candidates — stale but still earning traffic</h3>
+      <table>
+        <thead><tr><th>Page</th><th>Last updated</th><th>Monthly organic traffic</th></tr></thead>
+        <tbody>
+          {% for r in report.content.refresh_candidates %}
+          <tr><td>{{ r.title }}</td><td>{{ r.modified_days_ago }} days ago</td><td>{{ r.monthly_traffic | thousands }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+  </section>
+
+  {# ---- recommendations ---- #}
+  <section class="block recs">
+    <h2>Recommendations</h2>
+    <ol class="rec-list">
+      {% for r in report.narrative.recommendations %}
+      <li>
+        <span class="prio prio-{{ r.priority | lower }}">{{ r.priority }}</span>
+        <div><strong>{{ r.title }}</strong><p>{{ r.detail }}</p></div>
+      </li>
+      {% endfor %}
+    </ol>
+  </section>
+
+  <footer class="report-foot">
+    Generated by Pepper Atlas · narrative drafted by Claude · data is illustrative
+  </footer>
+</article>
+
+<script id="chart-data" type="application/json">
+{{ {
+  "engines": {
+    "labels": report.ai_visibility.engines | map(attribute='engine') | list,
+    "values": report.ai_visibility.engines | map(attribute='visibility_score') | list
+  },
+  "sov": {
+    "labels": [report.client.name] + (report.ai_visibility.competing_brands | map(attribute='name') | list),
+    "values": [report.ai_visibility.summary.share_of_voice.current] + (report.ai_visibility.competing_brands | map(attribute='share_of_voice') | list)
+  },
+  "channels": {
+    "labels": report.traffic.channels | map(attribute='name') | list,
+    "values": report.traffic.channels | map(attribute='sessions') | list
+  }
+} | tojson }}
+</script>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+{% endblock %}
