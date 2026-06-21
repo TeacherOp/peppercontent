@@ -655,7 +655,9 @@
       ]
     },
     "narrative": {
-      "executive_summary": "Northwind Legal delivered strong traffic growth in May 2025, with sessions up 11.8% and organic search sessions surging 18.1%. However, flat conversions and a 2.3% revenue decline point to conversion friction that demands immediate attention. AI visibility improved significantly, with visibility score up 12% and share of voice increasing 15.5%, positioning Northwind Legal more favorably in the emerging AI search channel.",
+      "executive_summary": [
+        "Northwind Legal delivered strong traffic growth in May 2025, with sessions up 11.8% and organic search sessions surging 18.1%. However, flat conversions and a 2.3% revenue decline point to conversion friction that demands immediate attention. AI visibility improved significantly, with visibility score up 12% and share of voice increasing 15.5%, positioning Northwind Legal more favorably in the emerging AI search channel."
+      ],
       "highlights": [
         {
           "title": "Organic search momentum accelerates",
@@ -675,10 +677,18 @@
         }
       ],
       "section_insights": {
-        "organic": "Organic search performance was robust, with clicks up 3.9%, impressions up 7.0%, and average position improving to 14.5. Keyword gains concentrated in trademark and entity formation queries, while significant declines in business license requirements (down 5.1 positions) and legalzoom alternative (down 4.7 positions) suggest content gaps or competitor activity in comparison and licensing content. The 2.8% CTR decline despite better rankings indicates title and meta description optimization opportunities.",
-        "ai_visibility": "Northwind Legal's AI search presence strengthened considerably, with visibility score reaching 28.0 (up 12%) and mention rate climbing 15.7% to 0.21. Copilot became the strongest channel with 39.9 visibility (up 27.1%), while Google AI Overviews visibility jumped 18.7%. Despite these gains, Northwind Legal remains fourth in AI share of voice at 0.12, trailing ZenBusiness (0.28) and Rocket Lawyer (0.191), presenting a clear opportunity to capture more AI-driven consideration.",
-        "competitive": "Northwind Legal holds fourth position in organic visibility at 0.215, significantly behind LegalZoom (0.532) and ZenBusiness (0.458), though the gap narrowed slightly with ranking keywords increasing 4.5% to 2,060. The 8.7% growth in referring domains to 1,161 and 3.0% backlink increase suggest improving authority signals. Authority Score remained flat at 43.0, indicating that while link acquisition is progressing, the quality or diversity may need enhancement to move the needle against entrenched competitors.",
-        "content": "Six of the 10 tracked content pieces are stale, with the Business License Requirements article unmodified for 872 days despite driving 1,764 monthly visits and directly correlating to the 5.1-position drop for that keyword. The Free Operating Agreement Template (732 days old, 1,546 monthly visits) and S Corp vs LLC article (388 days old, 1,455 monthly visits) both rank for gaining keywords but represent significant refresh opportunities. Annual Report Filing Deadlines drives 4,741 monthly visits and was last modified 261 days ago, making it the highest-impact refresh candidate."
+        "organic": [
+          "Organic search performance was robust, with clicks up 3.9%, impressions up 7.0%, and average position improving to 14.5. Keyword gains concentrated in trademark and entity formation queries, while significant declines in business license requirements (down 5.1 positions) and legalzoom alternative (down 4.7 positions) suggest content gaps or competitor activity in comparison and licensing content. The 2.8% CTR decline despite better rankings indicates title and meta description optimization opportunities."
+        ],
+        "ai_visibility": [
+          "Northwind Legal's AI search presence strengthened considerably, with visibility score reaching 28.0 (up 12%) and mention rate climbing 15.7% to 0.21. Copilot became the strongest channel with 39.9 visibility (up 27.1%), while Google AI Overviews visibility jumped 18.7%. Despite these gains, Northwind Legal remains fourth in AI share of voice at 0.12, trailing ZenBusiness (0.28) and Rocket Lawyer (0.191), presenting a clear opportunity to capture more AI-driven consideration."
+        ],
+        "competitive": [
+          "Northwind Legal holds fourth position in organic visibility at 0.215, significantly behind LegalZoom (0.532) and ZenBusiness (0.458), though the gap narrowed slightly with ranking keywords increasing 4.5% to 2,060. The 8.7% growth in referring domains to 1,161 and 3.0% backlink increase suggest improving authority signals. Authority Score remained flat at 43.0, indicating that while link acquisition is progressing, the quality or diversity may need enhancement to move the needle against entrenched competitors."
+        ],
+        "content": [
+          "Six of the 10 tracked content pieces are stale, with the Business License Requirements article unmodified for 872 days despite driving 1,764 monthly visits and directly correlating to the 5.1-position drop for that keyword. The Free Operating Agreement Template (732 days old, 1,546 monthly visits) and S Corp vs LLC article (388 days old, 1,455 monthly visits) both rank for gaining keywords but represent significant refresh opportunities. Annual Report Filing Deadlines drives 4,741 monthly visits and was last modified 261 days ago, making it the highest-impact refresh candidate."
+        ]
       },
       "recommendations": [
         {
@@ -702,6 +712,15 @@
           "priority": "Medium"
         }
       ]
-    }
+    },
+    "section_order": [
+      "executive",
+      "ai_visibility",
+      "organic",
+      "traffic",
+      "competitive",
+      "content",
+      "recommendations"
+    ]
   }
 }

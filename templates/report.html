@@ -36,6 +36,21 @@
   <div class="metric"><div class="metric-label">{{ label }}</div><div class="metric-value">{{ value }}</div></div>
 {% endmacro %}
 
+{# A group of editable text boxes (executive summary / section insights).
+   Accepts a string (legacy) or a list of paragraphs. #}
+{% macro group(key, value, cls) %}
+  {% set items = [value] if value is string else value %}
+  <div class="block-group" data-group="{{ key }}">
+    {% for para in items %}
+    <div class="text-block">
+      <p class="{{ cls }} ed-block">{{ para }}</p>
+      <button type="button" class="block-remove no-print" aria-label="Remove text box">✕</button>
+    </div>
+    {% endfor %}
+    <button type="button" class="block-add no-print">+ Add text box</button>
+  </div>
+{% endmacro %}
+
 {% block content %}
 <div class="actionbar no-print" id="actionbar" {% if meta %}data-report-id="{{ meta.id }}"{% endif %}>
   <a href="{{ url_for('index') }}" class="link">← New report</a>
@@ -61,21 +76,23 @@
   </header>
 
   {# ---- executive summary ---- #}
-  <section class="block summary-block">
+  <section class="block summary-block" data-section="executive">
     <h2>Executive summary</h2>
-    <p class="exec" data-edit="executive_summary">{{ report.narrative.executive_summary }}</p>
-    <div class="highlights">
+    {{ group('executive_summary', report.narrative.executive_summary, 'exec') }}
+    <div class="highlights" id="highlight-list">
       {% for h in report.narrative.highlights %}
       <div class="highlight">
-        <strong data-edit="highlights.{{ loop.index0 }}.title">{{ h.title }}</strong>
-        <span data-edit="highlights.{{ loop.index0 }}.detail">{{ h.detail }}</span>
+        <strong class="hl-title">{{ h.title }}</strong>
+        <span class="hl-detail">{{ h.detail }}</span>
+        <button type="button" class="hl-remove no-print" aria-label="Remove highlight">✕</button>
       </div>
       {% endfor %}
     </div>
+    <button type="button" class="hl-add no-print" id="highlight-add">+ Add highlight</button>
   </section>
 
   {# ---- AI search visibility (the differentiator) ---- #}
-  <section class="block">
+  <section class="block" data-section="ai_visibility">
     <div class="block-head"><h2>AI search visibility</h2><span class="tag-ai">Pepper focus</span></div>
     <div class="metrics">
       {{ card('Visibility score', report.ai_visibility.summary.visibility_score) }}
@@ -83,7 +100,7 @@
       {{ card('Mention rate', report.ai_visibility.summary.mention_rate, 'pct') }}
       {{ card('Avg. position', report.ai_visibility.summary.avg_position) }}
     </div>
-    <p class="insight" data-edit="section_insights.ai_visibility">{{ report.narrative.section_insights.ai_visibility }}</p>
+    {{ group('section_insights.ai_visibility', report.narrative.section_insights.ai_visibility, 'insight') }}
     <div class="grid-2">
       <div class="panel">
         <h3>Visibility by engine</h3>
@@ -134,7 +151,7 @@
   </section>
 
   {# ---- organic search ---- #}
-  <section class="block">
+  <section class="block" data-section="organic">
     <h2>Organic search performance</h2>
     <div class="metrics">
       {{ card('Clicks', report.organic.summary.clicks, 'thousands') }}
@@ -142,7 +159,7 @@
       {{ card('CTR', report.organic.summary.ctr, 'pct') }}
       {{ card('Avg. position', report.organic.summary.position) }}
     </div>
-    <p class="insight" data-edit="section_insights.organic">{{ report.narrative.section_insights.organic }}</p>
+    {{ group('section_insights.organic', report.narrative.section_insights.organic, 'insight') }}
     <div class="grid-2">
       <div class="panel">
         <h3>Top queries</h3>
@@ -173,7 +190,7 @@
   </section>
 
   {# ---- traffic & conversions ---- #}
-  <section class="block">
+  <section class="block" data-section="traffic">
     <h2>Traffic &amp; conversions</h2>
     <div class="metrics">
       {{ card('Sessions', report.traffic.summary.sessions, 'thousands') }}
@@ -201,7 +218,7 @@
   </section>
 
   {# ---- competitive ---- #}
-  <section class="block">
+  <section class="block" data-section="competitive">
     <h2>Competitive position</h2>
     <div class="metrics">
       {{ card('Organic keywords', report.competitive.summary.organic_keywords, 'thousands') }}
@@ -209,7 +226,7 @@
       {{ card('Authority score', report.competitive.summary.ascore) }}
       {{ card('Ref. domains', report.competitive.summary.ref_domains, 'thousands') }}
     </div>
-    <p class="insight" data-edit="section_insights.competitive">{{ report.narrative.section_insights.competitive }}</p>
+    {{ group('section_insights.competitive', report.narrative.section_insights.competitive, 'insight') }}
     <div class="panel">
       <table>
         <thead><tr><th>Domain</th><th>Visibility</th><th>Chg</th><th>Authority</th></tr></thead>
@@ -226,7 +243,7 @@
   </section>
 
   {# ---- content ---- #}
-  <section class="block">
+  <section class="block" data-section="content">
     <h2>Content health</h2>
     <div class="metrics">
       {{ card_static('Platform', report.content.platform) }}
@@ -234,7 +251,7 @@
       {{ card_static('New (30d)', report.content.published_recent) }}
       {{ card_static('Stale pages', report.content.stale_count) }}
     </div>
-    <p class="insight" data-edit="section_insights.content">{{ report.narrative.section_insights.content }}</p>
+    {{ group('section_insights.content', report.narrative.section_insights.content, 'insight') }}
     {% if report.content.refresh_candidates %}
     <div class="panel">
       <h3>Refresh candidates — stale but still earning traffic</h3>
@@ -251,7 +268,7 @@
   </section>
 
   {# ---- recommendations ---- #}
-  <section class="block recs">
+  <section class="block recs" data-section="recommendations">
     <h2>Recommendations</h2>
     <ol class="rec-list" id="rec-list">
       {% for r in report.narrative.recommendations %}
@@ -273,6 +290,7 @@
   </footer>
 </article>
 
+<script id="section-order" type="application/json">{{ (report.section_order or []) | tojson }}</script>
 <script id="chart-data" type="application/json">
 {{ {
   "engines": {

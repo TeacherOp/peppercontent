@@ -95,30 +95,78 @@ def rename_report(report_id, name):
 
 
 _EDITABLE_ROOTS = {"executive_summary", "section_insights", "highlights", "recommendations"}
+_INSIGHT_KEYS = {"organic", "ai_visibility", "competitive", "content"}
+_SECTION_IDS = ["executive", "ai_visibility", "organic", "traffic", "competitive", "content", "recommendations"]
 
 
 def update_narrative(report_id, edits):
-    """Apply manager edits to the stored narrative.
+    """Apply manager edits to a stored report.
 
-    ``edits`` maps dotted paths (e.g. "section_insights.organic",
-    "recommendations.0.title") to new text. Only existing keys under known
-    narrative roots are updated — unknown paths are ignored.
+    ``edits`` may carry: dotted paths for highlights (e.g.
+    "highlights.0.title"); "executive_summary" as a list of paragraphs;
+    "section_insights" as a {key: [paragraphs]} dict; "recommendations" as a
+    full list; and "section_order" as a list of section ids. Unknown keys are
+    ignored.
     """
     data = get_report(report_id)
     if data is None:
         return False
-    narrative = data.get("report", {}).get("narrative")
+    report = data.get("report", {})
+    narrative = report.get("narrative")
     if not isinstance(narrative, dict):
         return False
+
     for path, value in edits.items():
         if path == "recommendations" and isinstance(value, list):
             narrative["recommendations"] = _clean_recs(value)
-            continue
-        parts = path.split(".")
-        if parts and parts[0] in _EDITABLE_ROOTS:
-            _set_by_path(narrative, parts, str(value))
+        elif path == "highlights" and isinstance(value, list):
+            narrative["highlights"] = _clean_highlights(value)
+        elif path == "executive_summary" and isinstance(value, list):
+            narrative["executive_summary"] = _clean_text_list(value)
+        elif path == "section_insights" and isinstance(value, dict):
+            insights = narrative.setdefault("section_insights", {})
+            if isinstance(insights, dict):
+                for key, paras in value.items():
+                    if key in _INSIGHT_KEYS and isinstance(paras, list):
+                        insights[key] = _clean_text_list(paras)
+        elif path == "section_order" and isinstance(value, list):
+            report["section_order"] = _clean_order(value)
+        else:
+            parts = path.split(".")
+            if parts and parts[0] in _EDITABLE_ROOTS:
+                _set_by_path(narrative, parts, str(value))
+
     _write_json(_path(report_id), data)
     return True
+
+
+def _clean_highlights(items):
+    cleaned = []
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        title = str(item.get("title", "")).strip()
+        detail = str(item.get("detail", "")).strip()
+        if not title and not detail:
+            continue
+        cleaned.append({"title": title, "detail": detail})
+    return cleaned
+
+
+def _clean_text_list(items):
+    return [t for t in (str(x).strip() for x in items) if t]
+
+
+def _clean_order(value):
+    order = []
+    for item in value:
+        item = str(item)
+        if item in _SECTION_IDS and item not in order:
+            order.append(item)
+    for item in _SECTION_IDS:  # never drop a section
+        if item not in order:
+            order.append(item)
+    return order
 
 
 def _clean_recs(items):

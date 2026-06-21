@@ -140,7 +140,28 @@ select, .search {
 }
 .editing [data-edit]:hover { outline-color: var(--accent); }
 .editing [data-edit]:focus { outline: 2px solid var(--accent); background: #fff; }
-.editing .highlight { display: block; }
+
+/* editable highlight cards */
+.hl-remove, .hl-add { display: none; }
+.editing .highlight { position: relative; padding-right: 34px; }
+.editing .hl-title, .editing .hl-detail {
+  display: block; outline: 1px dashed #b9bce6; background: #fbfbff; border-radius: 6px; padding: 2px 6px;
+}
+.editing .hl-detail { margin-top: 5px; }
+.editing .hl-title:focus, .editing .hl-detail:focus { outline: 2px solid var(--accent); background: #fff; }
+.editing .hl-title:empty::before { content: "Highlight title"; color: var(--flat); }
+.editing .hl-detail:empty::before { content: "One sentence with a number"; color: var(--flat); }
+.editing .hl-remove {
+  display: inline-flex; align-items: center; justify-content: center; position: absolute; top: 8px; right: 8px;
+  width: 22px; height: 22px; border: 1px solid var(--line); background: #fff; color: var(--muted);
+  border-radius: 6px; cursor: pointer; font-size: 11px;
+}
+.editing .hl-remove:hover { color: var(--bad); border-color: #f3c2c2; }
+.editing .hl-add {
+  display: inline-block; margin-top: 12px; background: #fff; border: 1px dashed var(--accent);
+  color: var(--accent); padding: 7px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer;
+}
+.editing .hl-add:hover { background: #f3f3fb; }
 
 /* editable recommendations */
 .rec-item { position: relative; }
@@ -164,6 +185,35 @@ select, .search {
   color: var(--accent); padding: 9px 14px; border-radius: 9px; font-size: 14px; font-weight: 600; cursor: pointer;
 }
 .editing .rec-add:hover { background: #f3f3fb; }
+
+/* editable text-box groups (executive summary + section overviews) */
+.block-add, .block-remove { display: none; }
+.editing .ed-block { outline: 1px dashed #b9bce6; background: #fbfbff; border-radius: 6px; padding: 6px 8px; }
+.editing .ed-block:focus { outline: 2px solid var(--accent); background: #fff; }
+.editing .ed-block:empty::before { content: "Add text…"; color: var(--flat); }
+.editing .text-block { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px; }
+.editing .text-block .ed-block { flex: 1; margin: 0; }
+.editing .block-remove {
+  display: inline-flex; align-items: center; justify-content: center; align-self: flex-start;
+  width: 26px; height: 26px; border: 1px solid var(--line); background: #fff; color: var(--muted);
+  border-radius: 7px; cursor: pointer; font-size: 12px; flex: none;
+}
+.editing .block-remove:hover { color: var(--bad); border-color: #f3c2c2; }
+.editing .block-add {
+  display: inline-block; background: #fff; border: 1px dashed var(--accent); color: var(--accent);
+  padding: 7px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer;
+}
+.editing .block-add:hover { background: #f3f3fb; }
+
+/* section reordering */
+.editing [data-section] { position: relative; outline: 1px dashed #d7d9ee; outline-offset: 8px; border-radius: 4px; }
+.section-tools { display: none; }
+.editing .section-tools { display: flex; gap: 6px; position: absolute; top: -4px; right: 0; z-index: 5; }
+.editing .section-tools button {
+  width: 28px; height: 28px; border: 1px solid var(--line); background: #fff; color: var(--ink);
+  border-radius: 7px; cursor: pointer; font-size: 11px; line-height: 1; box-shadow: 0 2px 6px rgba(10, 0, 102, 0.08);
+}
+.editing .section-tools button:hover { background: var(--ink); color: #fff; }
 .actions { display: flex; gap: 10px; align-items: center; }
 .link { color: var(--accent); text-decoration: none; font-weight: 600; }
 .draft-tag { font-size: 12px; color: #9a6b00; background: #fff4d6; border: 1px solid #f0dca0; padding: 4px 10px; border-radius: 20px; }
