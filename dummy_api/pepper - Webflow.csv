@@ -1,0 +1,11 @@
+Webflow — CMS — Webflow (read CMS items),,,,
+1 endpoint(s). Mock definitions — assume realistic data shapes.,,,,
+,,,,
+GET /v2/collections/{collection_id}/items/live [GET] GET /v2/collections/{collection_id}/items/live,,,,
+List only currently live (published) items. Filter to public-facing content.,,,,
+INPUTS,,,,
+Name,Type,Required,What it is,Why it matters
+Same as items list,—,—,Standard paging,Pagination uses the same offset/limit pattern as the standard collection items endpoint.
+OUTPUTS,,,,
+Name,Type,,What it is,Why it matters
+"Same shape as items list, filtered to live",—,,Live items only,"Returns the same item shape as the draft endpoint, but only items currently published to the live site. Use this when building reports off published content."

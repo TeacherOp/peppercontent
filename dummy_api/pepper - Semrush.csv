@@ -1,0 +1,97 @@
+"Semrush — Third-party SEO (rankings, keywords, competitors, backlinks)",,,,
+6 endpoint(s). Mock definitions — assume realistic data shapes.,,,,
+,,,,
+domain_organic [GET] GET /?type=domain_organic&key={k}&domain={d}&database={db},,,,
+"Every organic keyword the domain ranks for in top 100. Most-used Semrush endpoint — keyword discovery, position monitoring, competitive intel.",,,,
+INPUTS,,,,
+Name,Type,Required,What it is,Why it matters
+"key, type, domain, database",—,Y,Standard required params,"Standard Semrush call parameters: API key (auth), endpoint type, the domain to analyse, and which country database to query (e.g. us, uk, in)."
+display_limit,int,N,"Default 10K, max 100K per call",How many keywords this call?
+display_offset,int,N,Pagination offset,Skip first N for paginating
+display_sort,string,N,tr_desc | po_asc | po_desc | nq_desc | cp_desc | tc_desc,"How to sort — by traffic, position, volume, CPC, traffic cost?"
+display_filter,string,N,Filter rules e.g. '+|Po|Lt|10' (position less than 10) or '+|Nq|Gt|1000|*|Po|Lt|20',"Narrow to e.g. only top-10 positions, only high-volume keywords"
+display_positions,string,N,new | lost | rising | declining | improved | declined,"Show only newly-ranking, lost, rising, or declining keywords"
+export_columns,string,N,Ph|Po|Pp|Pd|Nq|Cp|Ur|Tr|Tc|Co|Nr|Td|Fp|Fk,Which specific columns you want back — lets you trim the payload to just the metrics you need.
+OUTPUTS,,,,
+Name,Type,,What it is,Why it matters
+Ph,string,,Keyword phrase,Which keyword is this row about?
+Po,int,,Current ranking position (1-100),Where am I currently ranking?
+Pp,int,,Previous position (prior period),Where was I ranking before?
+Pd,int,,"Position difference (Po - Pp). Negative = improved, positive = dropped","Did I move up or down, by how much?"
+Nq,int,,Monthly search volume in selected database,How much demand is there for this keyword?
+Cp,float,,Average CPC USD (Google Ads bidding indicator of commercial value),How commercially valuable is this keyword?
+Ur,string,,URL ranking for this keyword,URL — which specific landing page is ranking for this keyword.
+Tr,float (0-1),,Estimated share of domain's traffic from this keyword,How much of the domain's traffic does this keyword drive?
+Tc,float,,Estimated USD value of this keyword's traffic,What's the dollar value of this keyword to me?
+Co,float (0-1),,Paid competition density (1 = many advertisers competing),How crowded is the paid SERP for this term?
+Nr,int,,Total SERP results count,How big is the competing field?
+Td,string,,"12-month volume trend e.g. '0.46,0.51,...,1.0' (normalized)",Is demand seasonal or growing?
+Fp,string,,SERP features present: paid_results | featured_snippet | related_questions | ai_overview | image_pack | video | site_links | local_pack | shopping | etc.,What kind of SERP is this? Are there snippet/AIO opportunities?
+Fk,string,,"Intent class: 0=commercial, 1=informational, 2=navigational, 3=transactional","What does the searcher want — to buy, learn, find a brand, or do something?"
+,,,,
+domain_organic_pages [GET] GET /?type=domain_organic_pages&key={k}&domain={d},,,,
+Top organic-traffic pages on a domain. Per-URL traffic share + keyword count.,,,,
+INPUTS,,,,
+Name,Type,Required,What it is,Why it matters
+"key, type, domain, database",—,Y,Standard,"Standard Semrush call parameters: auth key, endpoint type, the domain, and country database to query."
+"display_limit, display_sort, display_filter",—,N,Standard,"How to paginate, sort, and filter the result set."
+export_columns,string,N,Ur|Pc|Tr|Tc,"Pick which columns to return — useful when you only care about traffic and rank, not the full payload."
+OUTPUTS,,,,
+Name,Type,,What it is,Why it matters
+Ur,string,,Page URL,URL — which specific landing page is ranking for this keyword.
+Pc,int,,Number of keywords this page ranks for,How many keywords does this page own?
+Tr,int,,Estimated traffic / month to this page,Estimated monthly organic traffic to this specific page — the report's volume metric.
+Tc,float,,Traffic cost equivalent USD,Estimated traffic cost — what it would cost to buy this page's organic traffic via paid ads. A 'value' proxy.
+,,,,
+phrase_organic [GET] GET /?type=phrase_organic&key={k}&phrase={kw},,,,
+Top 20 organic results currently ranking for a keyword. SERP analysis.,,,,
+INPUTS,,,,
+Name,Type,Required,What it is,Why it matters
+"key, type, phrase, database",—,Y,Standard,"Standard Semrush call parameters: auth, endpoint, target keyword, and country database."
+"display_limit, display_offset",—,N,Paging within top 20,"Paging — limit = how many rows per call, offset = skip this many to get later pages."
+OUTPUTS,,,,
+Name,Type,,What it is,Why it matters
+Po,int,,SERP position 1-20,Position — where this URL ranks in the SERP for the keyword (1 = top of page one).
+"Dn, Ur",string,,Domain + URL ranking,Who is ranking and on which page?
+Tg,string,,Page title,Title — the meta title of the ranking page. Useful for spotting what's working in SERP.
+,,,,
+phrase_kdi (Keyword Difficulty) [GET] GET /?type=phrase_kdi&key={k}&phrase={kw},,,,
+Bulk KD scoring. Up to 100 phrases per call.,,,,
+INPUTS,,,,
+Name,Type,Required,What it is,Why it matters
+"key, type, database",—,Y,Standard,Standard auth + endpoint + country database parameters.
+phrase,string,Y,Pipe-separated keywords (up to 100),Which keywords to score in bulk?
+export_columns,string,N,Ph|Kd,Trim the response to specific columns.
+OUTPUTS,,,,
+Name,Type,,What it is,Why it matters
+"Ph, Kd",—,,Keyword + difficulty 0-100,How hard is each keyword to rank for?
+,,,,
+backlinks_overview [GET] GET /analytics/v1/?type=backlinks_overview&target={t},,,,
+Aggregate backlink summary — totals + distribution.,,,,
+INPUTS,,,,
+Name,Type,Required,What it is,Why it matters
+"key, type, target, target_type",—,Y,Standard,"Auth key, endpoint, the target URL/domain to analyse, and whether the target is a domain, subdomain, or single URL."
+OUTPUTS,,,,
+Name,Type,,What it is,Why it matters
+ascore,int (0-100),,Domain Authority Score,Authority Score (0-100) — Semrush's composite domain authority rating. Higher = stronger backlink profile.
+total,int,,Total backlinks,Total number of inbound links pointing to the target — raw link volume.
+domains_num,int,,Unique referring domains,Number of unique referring domains — more important than total links (10 links from 10 sites > 100 links from 1 site).
+urls_num,int,,Unique referring URLs,Number of unique pages linking to the target.
+ips_num,int,,Unique IPs,Number of unique IPs hosting linking sites — a diversity signal (10 sites on 10 IPs is healthier than 10 sites on 1 IP).
+ipclassc_num,int,,Unique Class C subnets (network diversity),Number of unique class-C IP subnets — even stronger diversity signal. Concentration here often indicates link networks.
+"follows_num, nofollows_num",int,,Dofollow vs nofollow counts,How many links pass authority?
+"sponsored_num, ugc_num",int,,rel=sponsored / rel=ugc counts,Paid/sponsored vs user-generated link counts
+"texts_num, images_num, forms_num, frames_num",int,,Counts by link type,What kinds of links predominate?
+,,,,
+Position Tracking API [GET] GET /reports/v1/projects/{id}/tracking/{report_type},,,,
+Daily-tracked keyword rankings. More granular than domain_organic (daily vs monthly).,,,,
+INPUTS,,,,
+Name,Type,Required,What it is,Why it matters
+"project_id (path), report_type (path)",—,Y,report_type: positions | overview | landing_pages | competitors_pages | tracking_visibility | tracking_overview | competitors_discovery,Which slice of tracking data?
+"Project setup: keywords, target, search_engine, location, device",—,Y create project,Tracking configuration,"The tracking config — which keywords to follow, the target domain, which search engine (e.g. google.com), city/country, and desktop vs mobile."
+"date_from, date_to",string,N,YYYY-MM-DD range,Start and end of the reporting window for tracked positions.
+OUTPUTS,,,,
+Name,Type,,What it is,Why it matters
+"keyword, position, position_change, traffic_share, search_volume, cpc, kd, intent, serp_features, landing_url, results_count",—,,Per-keyword daily tracking data,Daily keyword position + context
+visibility,float,,Estimated SERP visibility share,How visible am I overall?
+competitors[].position,int,,Per-competitor position for same keyword,How do I rank vs each competitor for this keyword?

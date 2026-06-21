@@ -1,0 +1,52 @@
+Contentful — CMS — Contentful (read entries + tags),,,,
+3 endpoint(s). Mock definitions — assume realistic data shapes.,,,,
+,,,,
+GET /spaces/{space}/environments/{env}/entries [CDA] [GET] GET https://cdn.contentful.com/spaces/{space}/environments/{env}/entries,,,,
+List published entries via fast CDN. Equivalent to WP /posts. Most-used Contentful read endpoint.,,,,
+INPUTS,,,,
+Name,Type,Required,What it is,Why it matters
+Authorization,header,Y,Bearer {CDA_token},"Bearer token using the Content Delivery API access token (read-only, scoped to a space)."
+"space, environment",path,Y,Space ID + env (typically 'master'),Which Contentful space (a workspace) and environment (master | staging | preview) to read from.
+content_type,query,N,Filter by content type ID (slug),Filter to specific content type
+limit,int,N,"Default 100, max 1000",Paging size
+skip,int,N,Pagination offset,Skip first N
+order,string,N,Field name with optional '-' prefix e.g. '-sys.updatedAt',"Sort by field, ascending or descending"
+fields.{fieldId}[match|in|nin|exists|gte|lte|gt|lt|ne|all],string,N,Filter expressions on entry fields,Filter entries by field values
+sys.{property}[match|in|nin|exists|gte|lte|gt|lt|ne|all],string,N,"Filter on system fields (id, createdAt, updatedAt, etc.)",Filter by system attributes
+locale,string,N,Locale code e.g. 'en-US'. Use 'all' for all locales,Which language version of the content to return. Use '*' to get all locales for each entry.
+include,int (0-10),N,Resolve linked references depth (saves round trips),Auto-resolve linked entries/assets up to N levels deep
+select,string,N,Comma-separated field paths to return,Comma-separated list of fields to return — lets you slim down the payload when you only need a few attributes.
+query,string,N,Full-text search across all fields,Find entries containing keyword
+OUTPUTS,,,,
+Name,Type,,What it is,Why it matters
+total,int,,Total matching entries,Total count for paging
+"skip, limit",int,,Echo of paging,Pagination state echoed back — what offset and page size the response was built with. Useful for the next paged call.
+items[].sys.id,string,,Entry ID,Entry identifier
+items[].sys.type,string,,'Entry',Resource type
+items[].sys.contentType.sys.id,string,,Content type ID,Which content type is this?
+"items[].sys.createdAt, .updatedAt, .publishedAt",datetime,,Lifecycle timestamps,"Lifecycle timestamps — when the entry was created, last edited, and last published. The gap between updated and published tells you if changes are pending."
+"items[].sys.version, .revision",int,,Version (for concurrency) + revision counter,"Version (every save, including drafts) and revision (published versions only). Comparing them tells you if a draft exists ahead of what's live."
+items[].sys.locale,string,,Locale of returned values,Which locale this particular field set is in. Relevant when the entry has multiple language versions.
+items[].fields,object,,"Field values per content type schema. Reference fields contain {sys: {type:'Link', linkType:'Entry|Asset', id}}. RichText fields contain document AST",The actual content fields the editor filled in — shape depends on the content model for this entry type.
+includes.Asset[],array,,Resolved linked assets (when include > 0),Linked images/files inline
+includes.Entry[],array,,Resolved linked entries,"Linked entries returned inline so you don't need a second call (e.g., the author entry referenced by a post)."
+,,,,
+GET /spaces/{space}/environments/{env}/entries/{id} [CDA] [GET] GET https://cdn.contentful.com/spaces/{space}/environments/{env}/entries/{entry_id},,,,
+Get single entry by ID. Faster than list when you have the ID.,,,,
+INPUTS,,,,
+Name,Type,Required,What it is,Why it matters
+"space, env, entry_id (path)",—,Y,Resource path,"Which space, environment, and specific entry to fetch."
+"locale, include, select",—,N,Same as list,Locale + reference depth + field selection
+OUTPUTS,,,,
+Name,Type,,What it is,Why it matters
+Single entry object — same shape as items[] in list,—,,Entry detail,Returns one entry with the same fields/sys/metadata shape as a single row from the list endpoint.
+,,,,
+GET /spaces/{space}/environments/{env}/tags [CDA + CMA] [GET / POST / PUT / DELETE] /spaces/{space}/environments/{env}/tags[/{id}],,,,
+Metadata tags for cross-content-type taxonomy. Available via both CDA (read) and CMA (write).,,,,
+INPUTS,,,,
+Name,Type,Required,What it is,Why it matters
+"POST body: name, sys.id (slug), sys.visibility (public|private)",—,Y create,Tag config,"To create a tag, supply a display name, a slug (sys.id — also used in URLs), and whether it's visible publicly or only internally."
+OUTPUTS,,,,
+Name,Type,,What it is,Why it matters
+"items[].sys.id, .type='Tag', .visibility, .createdAt, .updatedAt, .version",—,,Tag identity,"Each tag's metadata — slug, resource type marker, visibility, when it was created and last updated, and current version number."
+items[].name,string,,Display name,Display label shown to editors and (if public) to end users.

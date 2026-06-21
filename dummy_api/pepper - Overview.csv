@@ -1,0 +1,19 @@
+Data Available — API Reference for the Interview Challenge,,,
+These are mock / illustrative endpoint definitions. Treat them as black-box APIs — assume they return realistic data. You do not need to make real calls.,,,
+,,,
+Source,What it covers,# endpoints,Sheet
+GSC,Search Performance (organic search analytics),4,see → GSC
+GA4,"Web Analytics (sessions, conversions, engagement)",1,see → GA4
+Semrush,"Third-party SEO (rankings, keywords, competitors, backlinks)",6,see → Semrush
+Semrush AI,Third-party AI Search Visibility (Semrush AI Toolkit),3,see → Semrush AI
+GEO,"AI Search / GEO Visibility (mentions across ChatGPT, Perplexity, etc.)",3,see → GEO
+WordPress,CMS — WordPress (publish + read posts),2,see → WordPress
+Webflow,CMS — Webflow (read CMS items),1,see → Webflow
+Contentful,CMS — Contentful (read entries + tags),3,see → Contentful
+,,,
+,,,
+Notes,,,
+•  All data points are documented. You don't need every endpoint — pick what you actually need.,,,
+•  Inputs marked 'Y' under Required must be supplied; 'N' have sensible defaults.,,,
+"•  If the brief calls for something not listed, propose how you'd extend the data layer.",,,
+•  Auth / rate limits / pagination are out of scope — assume they Just Work.,,,

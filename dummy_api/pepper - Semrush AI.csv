@@ -1,0 +1,69 @@
+Semrush AI — Third-party AI Search Visibility (Semrush AI Toolkit),,,,
+3 endpoint(s). Mock definitions — assume realistic data shapes.,,,,
+,,,,
+ai_visibility_overview [GET],,,,
+"Brand-level summary of AI search visibility across all tracked AI engines (ChatGPT, Perplexity, Google AI Overviews, Microsoft Copilot, Claude). Returns visibility score, share of voice, sentiment breakdown, per-engine metrics, and the leading competing brands.",,,,
+INPUTS,,,,
+Name,Type,Required,What it is,Why it matters
+brand,string,Y,"Brand name to track (e.g., 'acme', 'figma'). Matched against AI responses across tracked prompts.",Which company / product is being measured.
+database,string,Y,"Geographic market for the prompt set (e.g., us, uk, in, de). Different markets ask different things.",Which country's users (and prompt phrasings) we're modelling. Visibility in the US can be very different from India.
+date_from,string (YYYY-MM-DD),Y,Start of the reporting window.,When the period being analysed starts.
+date_to,string (YYYY-MM-DD),Y,End of the reporting window.,"When the period being analysed ends. Pair with date_from for week-over-week, month-over-month, etc."
+ai_engines,array<string>,N,Filter to specific engines: chatgpt | perplexity | google_aio | copilot | claude. Omit for all.,"Lets you narrow the analysis — useful when a client cares about one engine in particular (e.g., 'how are we doing on Perplexity?')."
+OUTPUTS,,,,
+Name,Type,,What it is,Why it matters
+visibility_score,float (0-100),,"Composite score blending mention rate, position within answers, and citation count.",The single 'how visible is this brand in AI search?' number. Good headline metric for a report.
+share_of_voice,float (0-1),,Brand's share of all brand mentions across the tracked prompt set in this window.,"Of every time ANY brand was mentioned by an AI engine, what fraction was us? Competitive presence."
+total_prompts_tracked,int,,Number of prompts in the tracked set for the chosen brand + market.,"The denominator. If this is small, treat the rest of the numbers with caution."
+total_mentions,int,,Raw count of times the brand was named by an AI engine in this window.,Volume signal. Pair with mention_rate to gauge breadth vs concentration.
+mention_rate,float (0-1),,Share of tracked prompts where the brand was mentioned at least once across any engine.,"Breadth — across all prompts, how often does the brand show up at all?"
+avg_position,float,,"Average ordinal position of the brand mention within AI responses (1 = mentioned first, lower = later in the answer).",Quality of mention. Being named first in an answer is worth more than being the seventh option.
+sentiment.positive,float (0-1),,Fraction of mentions classified as positive in tone.,How favourably are AI engines describing the brand?
+sentiment.neutral,float (0-1),,Fraction of mentions classified as neutral / informational.,"Most mentions usually fall here — neutral isn't bad, but it's not advocacy either."
+sentiment.negative,float (0-1),,Fraction of mentions classified as negative in tone.,Reputation risk signal. Any non-trivial value here is worth a closer look at the prompts driving it.
+per_engine[],array<object>,,"Same metrics (visibility_score, share_of_voice, mention_rate, avg_position) broken out for each AI engine: { engine, visibility_score, share_of_voice, mention_rate, avg_position, change_vs_previous }.","Where are we winning vs losing? E.g., strong on Perplexity, weak on ChatGPT — guides where to focus optimisation work."
+top_competing_brands[],array<object>,,"Brands beating or competing closely with the user on share of voice. Each: { name, share_of_voice, change_vs_previous, top_engine }.","Competitive context for the report — 'we're at 12%, but Notion is at 28% and growing.'"
+,,,,
+ai_prompt_mentions [GET],,,,
+"Per-prompt drill-down. Returns the actual prompts the AI engines were asked, whether the brand appeared in each response, an excerpt of how it was described, and which competitors also got named. The qualitative layer behind the visibility score.",,,,
+INPUTS,,,,
+Name,Type,Required,What it is,Why it matters
+brand,string,Y,Brand being analysed.,Whose mentions to surface.
+database,string,Y,"Market (us, uk, in, etc.).",Which prompt set to draw from.
+date_from,string (YYYY-MM-DD),Y,Start of the window.,When the prompts were tracked from.
+date_to,string (YYYY-MM-DD),Y,End of the window.,When the window closes.
+ai_engine,string,N,Filter to a single engine. Omit for all.,Useful when reporting per-engine performance to a client.
+mentioned_only,boolean,N,"If true, return only prompts where the brand was actually mentioned. Default false (returns the full tracked set).","Toggle between 'show me wins' (true) and 'show me everything we're tracking, wins and misses' (false)."
+limit,int,N,"Page size. Default 50, max 500.",How many rows to bring back per call.
+offset,int,N,Pagination offset.,For walking through large result sets.
+OUTPUTS,,,,
+Name,Type,,What it is,Why it matters
+data[].prompt_text,string,,"The exact prompt the AI engine was asked (e.g., 'what's the best free design tool?').","The actual question users are asking — gold for content strategy, not just measurement."
+data[].ai_engine,enum,,Which engine generated the response: chatgpt | perplexity | google_aio | copilot | claude.,Where the mention happened — different engines have different user bases.
+data[].mentioned,boolean,,True if the brand appeared in this response.,Win/loss flag for this prompt + engine combination.
+data[].position,int | null,,Ordinal position of the brand within the response. Null if not mentioned.,"When mentioned, how prominent was it? Position 1 ≫ position 5."
+data[].response_excerpt,string,,"Short excerpt (~200 chars) of the actual AI response, with the brand mention in context.","Qualitative evidence for a report — paste this directly into a client deck. Shows HOW the brand is being described, not just THAT it is."
+data[].sentiment,enum (positive|neutral|negative),,Classifier-assigned sentiment of how the brand was described in this specific response.,Per-mention tone. Lets you find the worst (or best) example of how AI describes you.
+data[].citation_urls[],array<string>,,URLs the AI engine cited as sources for this response (where available).,Which pages convinced the AI to mention us — high-value optimisation targets.
+data[].competitor_brands_mentioned[],array<string>,,Other brands named in the same response.,Co-mention map — which competitors does the AI consistently bring up next to us? Useful for positioning.
+data[].response_captured_at,string (ISO 8601),,Timestamp when Semrush ran the prompt and captured the response.,"Freshness — AI responses drift, so the date matters."
+,,,,
+ai_citation_tracking [GET],,,,
+"Per-URL view of which specific pages on the user's domain are being cited by AI engines. Returns ranked pages by citation volume, the prompts driving citations, and per-engine breakdown.",,,,
+INPUTS,,,,
+Name,Type,Required,What it is,Why it matters
+domain,string,Y,"Domain to inspect (e.g., 'acme.com'). Use root domain — subdomains are aggregated.",Which website's citation footprint to analyse.
+database,string,Y,"Market (us, uk, in, etc.).",Country whose prompt set is being analysed.
+date_from,string (YYYY-MM-DD),Y,Start of the reporting window.,Window start.
+date_to,string (YYYY-MM-DD),Y,End of the reporting window.,Window end.
+ai_engine,string,N,Filter to one engine. Omit for all.,Slice the citation map by engine when needed.
+limit,int,N,"Number of pages to return. Default 50, max 1000.",How deep to go into the long tail.
+OUTPUTS,,,,
+Name,Type,,What it is,Why it matters
+data[].url,string (URL),,Full canonical URL of the cited page.,Which specific page on the domain is being referenced.
+data[].page_title,string,,Title of the page (from <title> tag or H1).,Human-readable label for the row in a report.
+data[].citations_count,int,,Total number of times this URL was cited by any tracked AI engine in the window.,Volume — the biggest citation earners on the site.
+data[].ai_engines_citing[],array<object>,,"Per-engine breakdown: { engine, citations_count, share_of_engine_citations }.",Tells you which engines lean on this page most — useful when an engine has very different user behaviour.
+data[].top_prompts[],array<object>,,"Top 5 prompts that caused this URL to be cited. Each: { prompt_text, ai_engine, citation_position }.",What questions is this page actually answering for AI engines? Critical for content strategy and for explaining 'why' in a report.
+data[].avg_citation_position,float,,Average position of this URL within the AI response's citation list (1 = first source listed).,Prominence — being cited first is much higher quality than being the fourth source.
+data[].change_vs_previous,object,,"{ citations_count_delta: int, percent_change: float, trend: positive|negative|neutral }",Movement metric — is this page gaining or losing AI citations vs the previous equivalent window?

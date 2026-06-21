@@ -1,0 +1,87 @@
+GSC — Search Performance (organic search analytics),,,,
+4 endpoint(s). Mock definitions — assume realistic data shapes.,,,,
+,,,,
+searchanalytics.query [POST] POST /webmasters/v3/sites/{siteUrl}/searchAnalytics/query,,,,
+"Primary performance endpoint. Returns clicks, impressions, CTR, position grouped by dimensions. Single source of truth for organic search performance.",,,,
+INPUTS,,,,
+Name,Type,Required,What it is,Why it matters
+siteUrl,string (path),Y,Property identifier — 'sc-domain:acme.com' for domain property or 'https://acme.com/' for URL-prefix property,Which site are we querying?
+startDate,string,Y,YYYY-MM-DD. Earliest available ~16 months back,When does the analysis window start?
+endDate,string,Y,YYYY-MM-DD. Most recent data has 24-48 hour lag,When does the analysis window end? How recent is the data?
+dimensions,array<string>,N,"Subset of: query, page, country, device, searchAppearance, date","What perspective do I want — by keyword, by URL, by country, by device, by SERP feature, or trend over time?"
+type,string,N,web | image | video | news | discover | googleNews. Default 'web',Which search vertical — main web search vs Discover vs News vs Images?
+dataState,string,N,"'final' (default, fully processed) | 'all' (includes fresh 1-2 day data, may revise)",Do I need today's preliminary numbers or do I want stable historical data?
+aggregationType,string,N,auto | byPage | byProperty. Determines how clicks are deduplicated,Should I count clicks per landing page (multiple per query OK) or per property (one credit per impression)?
+rowLimit,int,N,"Max 25,000 per request. Default 1,000",How many rows do I want back this call?
+startRow,int,N,Pagination offset,Where in the result set should I resume? (for paginating beyond 25K rows)
+dimensionFilterGroups,array<object>,N,"Filter clauses with operators: equals, contains, notContains, notEquals, includingRegex, excludingRegex","How do I narrow results — only branded queries, only mobile, only one country, only specific URL pattern?"
+OUTPUTS,,,,
+Name,Type,,What it is,Why it matters
+rows[].keys,array<string>,,Dimension values in the order specified in input dimensions,What is this row about — which keyword/page/country/device combo?
+rows[].clicks,int,,Number of clicks from Google search to your site for this dimension combination,How many people actually arrived from search? — direct traffic count
+rows[].impressions,int,,Number of times your URL appeared in search results,How visible was I? — exposure / how many SERPs included me
+rows[].ctr,float (0-1),,clicks ÷ impressions,"Of people who saw me, how many clicked? — title/meta effectiveness, snippet appeal"
+rows[].position,float,,"Average ranking position weighted by impressions. 1-based, lower is better",Where am I ranking on average? — primary ranking metric
+responseAggregationType,string,,byPage | byProperty — how Google actually aggregated,"Did Google honor my requested aggregation, or did it fall back?"
+,,,,
+urlInspection.index.inspect [POST] POST /v1/urlInspection/index:inspect,,,,
+"Per-URL diagnostic. Returns indexation status, mobile usability, rich results detection, last crawl, canonical resolution. GSC URL Inspection equivalent.",,,,
+INPUTS,,,,
+Name,Type,Required,What it is,Why it matters
+inspectionUrl,string,Y,"Full URL to inspect, must belong to verified property",Which specific page do I want to diagnose?
+siteUrl,string,Y,Verified property identifier,Which property does this URL belong to?
+languageCode,string,N,BCP-47 e.g. 'en-US'. Default 'en-US',Which locale's index version to inspect?
+OUTPUTS,,,,
+Name,Type,,What it is,Why it matters
+indexStatusResult.verdict,string,,PASS | PARTIAL | FAIL | NEUTRAL,"At a glance — is this page healthy, broken, or somewhere in between?"
+indexStatusResult.coverageState,string,,"Free-text state e.g. 'Submitted and indexed', 'Crawled - currently not indexed', 'Discovered - currently not indexed'",Why specifically is the page in this state? — diagnostic root cause
+indexStatusResult.robotsTxtState,string,,ALLOWED | DISALLOWED | ROBOTS_TXT_STATE_UNSPECIFIED,Is robots.txt blocking Googlebot from crawling this URL?
+indexStatusResult.indexingState,string,,INDEXING_ALLOWED | BLOCKED_BY_META_TAG | BLOCKED_BY_HTTP_HEADER | BLOCKED_BY_ROBOTS_TXT,"Is the page allowed to be indexed? If blocked, what is the blocker — meta tag, HTTP header, or robots?"
+indexStatusResult.lastCrawlTime,datetime,,ISO 8601 timestamp of most recent Googlebot crawl,How recently has Google looked at this page? Is the crawl stale?
+indexStatusResult.pageFetchState,string,,SUCCESSFUL | SOFT_404 | BLOCKED_ROBOTS_TXT | NOT_FOUND | ACCESS_DENIED | SERVER_ERROR | REDIRECT_ERROR | ACCESS_FORBIDDEN | BLOCKED_4XX | INTERNAL_CRAWL_ERROR | INVALID_URL,"When Google last tried to fetch this page, what happened? Is the server returning errors?"
+indexStatusResult.googleCanonical,string,,URL Google chose as the canonical (master) version,Which version of this page is Google treating as authoritative?
+indexStatusResult.userCanonical,string,,URL declared by your rel=canonical tag,Which version did I tell Google was canonical?
+indexStatusResult.sitemap,array<string>,,Sitemap URLs containing this URL,Did I declare this URL in any sitemap? Which one?
+indexStatusResult.referringUrls,array<string>,,Pages on the web Google found pointing to this URL,Where did Google discover this URL from? — internal/external link discovery audit
+mobileUsabilityResult.verdict,string,,PASS | PARTIAL | FAIL | NEUTRAL,Is this page usable on mobile?
+mobileUsabilityResult.issues[],array<object>,,"Each issue has rule (e.g. 'CONTENT_WIDER_THAN_SCREEN', 'CLICKABLE_ELEMENTS_TOO_CLOSE') and severity",What specifically makes this page mobile-unfriendly?
+richResultsResult.verdict,string,,PASS | PARTIAL | FAIL | NEUTRAL,Are my structured data declarations valid?
+richResultsResult.detectedItems[],array<object>,,"Each item: richResultType (Article, FAQ, HowTo, Product, etc.), items array, issues array",Which schema types did Google parse and are any of them broken?
+ampResult.verdict,string,,PASS | PARTIAL | FAIL,"If using AMP, is the AMP version valid?"
+inspectionResultLink,string,,Direct URL to GSC web UI for this inspection,Where do I go to dig deeper in the UI?
+,,,,
+sitemaps.list / get [GET] GET /webmasters/v3/sites/{siteUrl}/sitemaps[/{feedpath}],,,,
+List submitted sitemaps or fetch single sitemap status. Used for migration audits and sitemap health checks.,,,,
+INPUTS,,,,
+Name,Type,Required,What it is,Why it matters
+siteUrl,string (path),Y,Property identifier,Which property's sitemaps?
+feedpath,string (path),Get only,Full URL of specific sitemap,Which sitemap do I want detail on?
+sitemapIndex,string (query),N,URL of parent sitemap index — restricts list to children of this index,Show me only the sitemaps inside this index file
+OUTPUTS,,,,
+Name,Type,,What it is,Why it matters
+path,string,,Full URL of the sitemap,Where does this sitemap live?
+lastSubmitted,datetime,,Last time the sitemap was submitted via API or GSC UI,When did I last tell Google about this sitemap?
+isPending,bool,,True if Google hasn't processed yet,Is Google still crawling/processing this sitemap?
+isSitemapsIndex,bool,,True if this is a sitemap-of-sitemaps,Does this contain other sitemaps inside it (vs being a leaf sitemap)?
+lastDownloaded,datetime,,Last time Googlebot fetched the sitemap file,When did Google last actually read this sitemap?
+warnings,int,,Count of non-blocking warnings,Is the sitemap healthy? Anything to fix?
+errors,int,,Count of blocking errors,Is the sitemap broken in any way?
+contents[].type,string,,web | image | video | news,What kind of URLs does this sitemap declare?
+contents[].submitted,int,,Number of URLs declared,How many URLs did I tell Google about?
+contents[].indexed,int,,"Of those, how many Google has indexed",What's my submission-to-indexation ratio? Where is Google ignoring my declarations?
+,,,,
+urlTestingTools.mobileFriendlyTest.run [POST] POST /v1/urlTestingTools/mobileFriendlyTest:run,,,,
+On-demand mobile-friendly test. Returns rendering issues and optional screenshot. Note: largely superseded by URL Inspection's mobileUsabilityResult.,,,,
+INPUTS,,,,
+Name,Type,Required,What it is,Why it matters
+url,string,Y,Page URL to test (does not need to be in a verified property),Which page should we test for mobile usability?
+requestScreenshot,bool,N,Include rendered mobile screenshot in response,Do I want a visual of how the page looks rendered?
+OUTPUTS,,,,
+Name,Type,,What it is,Why it matters
+mobileFriendliness,string,,MOBILE_FRIENDLY | NOT_MOBILE_FRIENDLY | MOBILE_FRIENDLY_TEST_RESULT_UNSPECIFIED,Bottom line — is this page mobile-friendly?
+mobileFriendlyIssues[].rule,string,,USES_INCOMPATIBLE_PLUGINS | CONFIGURE_VIEWPORT | FIXED_WIDTH_VIEWPORT | SIZE_CONTENT_TO_VIEWPORT | USE_LEGIBLE_FONT_SIZES | TAP_TARGETS_TOO_CLOSE,Which specific mobile-friendly rule did the page violate?
+resourceIssues[].blockedResource.url,string,,"URLs Googlebot couldn't fetch (blocked CSS, JS, images)","Which resources are being blocked from Googlebot, breaking the rendered view?"
+screenshot.mimeType,string,,Usually 'image/png',What format is the screenshot?
+screenshot.data,string (base64),,Base64-encoded screenshot bytes,What does the page actually look like rendered? — visual debugging
+testStatus.status,string,,COMPLETE | INTERNAL_ERROR | PAGE_UNREACHABLE | TEST_STATUS_UNSPECIFIED,Did the test even run? — needed before trusting other fields
+testStatus.details,string,,Error message if test failed,"If the test failed, the specific reason (e.g., 'page not reachable', 'content wider than screen'). Useful for surfacing the fix in a report."

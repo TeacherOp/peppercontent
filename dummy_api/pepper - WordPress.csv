@@ -1,0 +1,71 @@
+WordPress — CMS — WordPress (publish + read posts),,,,
+2 endpoint(s). Mock definitions — assume realistic data shapes.,,,,
+,,,,
+GET /wp/v2/posts (list) [GET] /wp-json/wp/v2/posts,,,,
+List blog posts. Default content type for chronological articles. Foundation for refresh program and stale page identification.,,,,
+INPUTS,,,,
+Name,Type,Required,What it is,Why it matters
+Authorization,header,edit context only,Bearer JWT or Basic auth (Application Password),Standard auth header — typically a basic/application password for the user account doing the read.
+context,query,N,"view (default, public fields) | embed (minimal) | edit (full incl drafts, requires auth)","What detail level — public read, embedded, or full edit?"
+page,int,N,Default 1,Pagination page number
+per_page,int,N,"Default 10, max 100",Rows per page
+search,string,N,Full-text search query,Find posts matching keyword
+after / before,datetime,N,ISO 8601 — published after/before,Filter by publication date
+modified_after / modified_before,datetime,N,Filter by modification time,Find recently updated / stale posts
+author / author_exclude,array<int>,N,User IDs to include / exclude,Filter by author
+categories / categories_exclude / tags / tags_exclude,array<int>,N,Term IDs,Filter posts by category or tag IDs (or exclude them). Useful for narrowing reports to a content vertical.
+status,array<string>,N,publish | future | draft | pending | private | trash | auto-draft | inherit,"Filter by publication state — published, draft, scheduled, private. Default is published."
+orderby,string,N,date | modified | title | id | slug | relevance | include | menu_order,Sort field
+order,string,N,asc | desc,Sort direction
+_embed,bool,N,"Include linked resources (author, media, terms)",Save round-trips by embedding linked data
+_fields,string,N,Comma-separated field whitelist,Trim response to needed fields
+sticky,bool,N,Filter only sticky/non-sticky posts,"Limit to 'sticky' (pinned) posts only, or exclude them. Pinned posts appear at the top of blog listings."
+OUTPUTS,,,,
+Name,Type,,What it is,Why it matters
+id,int,,Post ID,Unique identifier
+date / date_gmt,datetime,,Published time (site tz / GMT),When was it published?
+modified / modified_gmt,datetime,,Last modification time,When was content last edited? — refresh signal
+slug,string,,URL slug,URL component
+status,string,,publish | draft | private | etc.,"Filter by publication state — published, draft, scheduled, private. Default is published."
+type,string,,Usually 'post',Content type
+link,string,,Public URL,Permalink
+title.rendered,string,,HTML-rendered title,Post title
+content.rendered,string,,HTML body,Post body content
+content.protected,bool,,True if password-protected,True if the post is password-protected — content body won't be in the response unless caller is authorised.
+excerpt.rendered,string,,Auto or manual excerpt,Summary
+author,int,,User ID,Who wrote it?
+featured_media,int,,Image attachment ID,Hero image
+comment_status / ping_status,string,,open | closed,Are comments / pingbacks accepted?
+sticky,bool,,Pinned to top of listings,"Limit to 'sticky' (pinned) posts only, or exclude them. Pinned posts appear at the top of blog listings."
+format,string,,standard | aside | gallery | link | image | quote | status | video | audio | chat,Post format style
+categories / tags,array<int>,,Term IDs,Taxonomy assignments
+meta,object,,Custom fields incl. SEO meta (Yoast/RankMath title/desc/canonical/schema),"Custom field bag — typically used for SEO plugin data (Yoast, Rank Math), schema overrides, custom flags. Important for report-style use cases."
+_links,object,,HATEOAS links to related resources,Where to find linked author/media/terms
+_embedded,object,,Linked resources if _embed=true,Author/media/terms inline
+,,,,
+POST /wp/v2/posts (create) [POST] /wp-json/wp/v2/posts,,,,
+Create new post. Used for brief-driven content production.,,,,
+INPUTS,,,,
+Name,Type,Required,What it is,Why it matters
+Authorization,header,Y,Author or higher role,Auth header for the write — requires a user with publish_posts capability.
+title,string,N (recommended),Post title (HTML allowed),Title
+content,string,N,HTML body,Body
+excerpt,string,N,Manual excerpt,Summary override
+status,string,N,publish | draft | future | private | pending. Default draft,Publication state at creation
+date / date_gmt,datetime,N,Schedule publication time (use with status=future),Set a future date to schedule the post instead of publishing immediately.
+slug,string,N,URL slug (auto-generated if omitted),Custom URL slug
+author,int,N,User ID (default = current user),Override author
+featured_media,int,N,Attachment ID,Set hero image
+categories / tags,array<int>,N,Term IDs to assign,Taxonomy assignment
+meta,object,N,Custom field key-value pairs (must be registered via register_meta),Custom + SEO metadata
+format,string,N,Post format,Format style
+sticky,bool,N,Pin to top,Featured?
+comment_status / ping_status,string,N,open | closed,Comments allowed?
+password,string,N,Password protect,Gate content?
+id,int (path),Y,Post ID,Which post?
+Same fields as POST,—,N,Only include fields to change,PATCH/PUT updates use the same body schema as POST — pass only the fields you want to change.
+OUTPUTS,,,,
+Name,Type,,What it is,Why it matters
+Same shape as GET /posts/{id},—,,Newly-created post object,Created post (use id for follow-up edits)
+201 Created,—,,Success status,Confirmation
+Updated post object,—,,Same shape as GET,Post with changes applied

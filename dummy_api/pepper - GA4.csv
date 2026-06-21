@@ -1,0 +1,35 @@
+"GA4 — Web Analytics (sessions, conversions, engagement)",,,,
+1 endpoint(s). Mock definitions — assume realistic data shapes.,,,,
+,,,,
+properties.runReport [POST] POST /v1beta/properties/{property}:runReport,,,,
+"Core reporting endpoint. Pulls historical metrics across dimensions with filters. Foundation for traffic, engagement, conversion, and attribution analysis.",,,,
+INPUTS,,,,
+Name,Type,Required,What it is,Why it matters
+property,string (path),Y,Resource name 'properties/{numericPropertyId}',Which GA4 property to query?
+dateRanges[],array<object>,Y,"Up to 4 ranges, each {startDate, endDate, name}. Dates can be 'YYYY-MM-DD', 'NdaysAgo', 'today', 'yesterday'",Which time windows to compare? (e.g. last 30d vs prior 30d)
+dimensions[],array<object>,N,Up to 9. Each {name: 'sessionSource' | 'landingPage' | 'deviceCategory' | 'date' | 'eventName' | etc.},"How do I want to slice the data — by source, by page, by device, by event?"
+metrics[],array<object>,Y,Up to 10. Each {name: 'sessions' | 'totalUsers' | 'engagementRate' | 'conversions' | 'totalRevenue' | etc.} or {expression: 'metric1/metric2'} for derived,"What numbers do I actually want? — sessions, conversions, revenue, custom calc?"
+dimensionFilter,FilterExpression,N,"Recursive — andGroup | orGroup | notExpression | filter{fieldName, stringFilter|inListFilter|numericFilter|betweenFilter}","How do I narrow rows — only organic, only landingPage matching pattern, only specific country?"
+metricFilter,FilterExpression,N,Same structure as dimensionFilter but applied to metric values (e.g. sessions > 100),Filter out low-volume rows? Show only high-converting?
+offset,int64,N,Pagination start,Skip first N rows (for fetching beyond limit)
+limit,int64,N,"Default 10,000. Max 250,000",How many rows to return this call?
+metricAggregations[],array<string>,N,TOTAL | MINIMUM | MAXIMUM | COUNT — adds totals/aggregates rows,Do I want a totals row? Min/max for sanity checking?
+orderBys[],array<object>,N,"Each {metric|dimension|pivot, desc: bool}. Multi-key sort","Sort how — by sessions descending, or alphabetical by source?"
+currencyCode,string,N,ISO 4217 e.g. 'USD' — overrides property default for revenue metrics,What currency to report monetary metrics in?
+cohortSpec,object,N,"Defines cohort dimension, ranges, granularity for cohort retention reports","Build a retention cohort — e.g. users acquired in week X, engagement over 8 weeks"
+keepEmptyRows,bool,N,Default false — empty rows omitted,Show me zero-value combinations (useful for completeness audits)
+returnPropertyQuota,bool,N,Include quota usage in response,How much of my API quota have I burned?
+OUTPUTS,,,,
+Name,Type,,What it is,Why it matters
+dimensionHeaders[].name,string,,Echo of requested dimension names in order,What does each row's dimension column represent?
+metricHeaders[].name,string,,Echo of metric names,What does each metric column represent?
+metricHeaders[].type,string,,TYPE_INTEGER | TYPE_FLOAT | TYPE_SECONDS | TYPE_CURRENCY | TYPE_FEET | TYPE_MILES | TYPE_METERS | TYPE_KILOMETERS | TYPE_MILLISECONDS | TYPE_MINUTES | TYPE_HOURS | TYPE_STANDARD,"How do I interpret/format this metric — currency, time, distance, count?"
+rows[].dimensionValues[].value,string,,Actual value for the dimension in this row,"What is this row's slice — e.g. source='google', deviceCategory='mobile'"
+rows[].metricValues[].value,string (numeric),,Metric numeric value as string (parse to int/float per metricHeaders.type),What's the actual number for this slice?
+totals[],array<row>,,Aggregate row across all returned rows (if metricAggregations included TOTAL),What's the sum across all my filtered rows?
+maximums[] / minimums[],array<row>,,Max/min metric values across rows,What's the best/worst performing slice in this report?
+rowCount,int,,Total matching rows in property (may exceed returned),How many rows match my query in total — am I getting truncated?
+metadata.currencyCode,string,,Currency used for revenue metrics,What currency are revenue numbers in?
+metadata.timeZone,string,,Property timezone (e.g. 'America/Los_Angeles'),What timezone are dates / hours reported in?
+metadata.schemaRestrictionResponse,object,,"Active sampling, threshold, or filter restrictions",Is my data sampled? Are there thresholds suppressing rows?
+propertyQuota.tokensPerHour.consumed/remaining,int,,Quota usage if returnPropertyQuota was true,How close am I to rate limits?
