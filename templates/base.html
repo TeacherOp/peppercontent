@@ -10,8 +10,10 @@
 <body>
   <header class="topbar">
     <div class="wrap">
-      <span class="logo">Pepper&nbsp;<span class="logo-sub">Atlas</span></span>
-      <span class="topbar-tag">Report Builder</span>
+      <a class="brand-link" href="{{ url_for('index') }}">
+        <img class="logo-img" src="{{ url_for('static', filename='logos/pepper_logo.svg') }}" alt="Pepper">
+      </a>
+      <span class="topbar-tag">Atlas · Report Builder</span>
     </div>
   </header>
   <main class="wrap">

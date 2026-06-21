@@ -4,10 +4,11 @@
   if (!el || typeof Chart === "undefined") return;
   var data = JSON.parse(el.textContent);
 
-  var INK = "#1a1f2e";
-  var ACCENT = "#5b6cff";
-  var BRAND = "#16a36a";
-  var PALETTE = ["#5b6cff", "#16a36a", "#f0a500", "#d64545", "#8b5cf6", "#0ea5e9"];
+  var INK = "#0a0066";
+  var ACCENT = "#0a0066";       // Pepper primary
+  var BRAND = "#0a0066";
+  // Navy ramp — on-brand, white-forward.
+  var PALETTE = ["#0a0066", "#3d3a9e", "#6f6ec9", "#9b9ad8", "#c4c3ea", "#e0dff5"];
 
   Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif";
   Chart.defaults.color = "#6b7280";
