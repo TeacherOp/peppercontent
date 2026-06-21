@@ -94,6 +94,72 @@ def rename_report(report_id, name):
     return name
 
 
+_EDITABLE_ROOTS = {"executive_summary", "section_insights", "highlights", "recommendations"}
+
+
+def update_narrative(report_id, edits):
+    """Apply manager edits to the stored narrative.
+
+    ``edits`` maps dotted paths (e.g. "section_insights.organic",
+    "recommendations.0.title") to new text. Only existing keys under known
+    narrative roots are updated — unknown paths are ignored.
+    """
+    data = get_report(report_id)
+    if data is None:
+        return False
+    narrative = data.get("report", {}).get("narrative")
+    if not isinstance(narrative, dict):
+        return False
+    for path, value in edits.items():
+        if path == "recommendations" and isinstance(value, list):
+            narrative["recommendations"] = _clean_recs(value)
+            continue
+        parts = path.split(".")
+        if parts and parts[0] in _EDITABLE_ROOTS:
+            _set_by_path(narrative, parts, str(value))
+    _write_json(_path(report_id), data)
+    return True
+
+
+def _clean_recs(items):
+    """Normalise an incoming recommendations list (add/remove/reorder safe)."""
+    allowed = {"High", "Medium", "Low"}
+    cleaned = []
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        title = str(item.get("title", "")).strip()
+        detail = str(item.get("detail", "")).strip()
+        if not title and not detail:
+            continue
+        priority = str(item.get("priority", "Medium")).strip().title()
+        if priority not in allowed:
+            priority = "Medium"
+        cleaned.append({"title": title, "detail": detail, "priority": priority})
+    return cleaned
+
+
+def _set_by_path(node, parts, value):
+    """Set value at a path, only when every step already exists."""
+    for part in parts[:-1]:
+        if isinstance(node, list):
+            if not part.isdigit() or int(part) >= len(node):
+                return
+            node = node[int(part)]
+        elif isinstance(node, dict):
+            if part not in node:
+                return
+            node = node[part]
+        else:
+            return
+    last = parts[-1]
+    if isinstance(node, list):
+        if last.isdigit() and int(last) < len(node):
+            node[int(last)] = value
+    elif isinstance(node, dict) and last in node:
+        node[last] = value
+
+
 def delete_report(report_id):
     if not valid_id(report_id):
         return False

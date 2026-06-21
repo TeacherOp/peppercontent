@@ -122,6 +122,14 @@ def rename_report(report_id):
     return jsonify({"name": new_name})
 
 
+@app.route("/reports/<report_id>/narrative", methods=["POST"])
+def edit_narrative(report_id):
+    edits = request.get_json(silent=True) or {}
+    if not store.update_narrative(report_id, edits):
+        abort(404)
+    return jsonify({"ok": True})
+
+
 @app.route("/reports/<report_id>/delete", methods=["POST"])
 def delete_report(report_id):
     store.delete_report(report_id)

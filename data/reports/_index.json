@@ -1,24 +1,13 @@
 [
   {
-    "id": "1546dc95b6b6",
-    "name": "Northwind Legal test 1",
+    "id": "2f44b344615d",
+    "name": "Northwind Legal",
     "company": "Northwind Legal",
-    "period": "October 2025",
-    "cadence": "Monthly",
-    "created_at": "2026-06-21T23:35:41",
-    "created_display": "21 Jun 2026, 23:35",
-    "created_date": "21 Jun 2026",
-    "created_time": "23:35"
-  },
-  {
-    "id": "6b89ae8e4a82",
-    "name": "Acme Analytics test 2",
-    "company": "Acme Analytics",
-    "period": "October 2025",
-    "cadence": "Monthly",
-    "created_at": "2026-06-21T23:34:44",
-    "created_display": "21 Jun 2026, 23:34",
-    "created_date": "21 Jun 2026",
-    "created_time": "23:34"
+    "period": "May 2025",
+    "cadence": "Quarterly",
+    "created_at": "2026-06-22T00:53:48",
+    "created_display": "22 Jun 2026, 00:53",
+    "created_date": "22 Jun 2026",
+    "created_time": "00:53"
   }
 ]
