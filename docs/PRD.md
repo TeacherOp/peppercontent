@@ -24,7 +24,7 @@ collection, delta computation, narrative drafting, and formatting - leaving the
 manager to **review, edit, and approve**.
 
 **North-star metric:** median minutes-to-send per report.
-**Guardrail:** edit distance / approval rate (quality must not drop - see §9).
+**Guardrail:** edit distance / approval rate (quality must not drop).
 
 ## 3. Users & the experience
 
@@ -60,8 +60,9 @@ and reopenable from the library.
    reports** library - reopen, rename, or delete without recomputing or
    re-calling Calude AI ( or any other suitable AI )  (see §6).
 7. **Lets the manager curate the report** in an in-place edit mode - rewrite any
-   Calude AI ( or any other suitable AI )  text, add or remove text boxes / highlights / recommendations, and
-   reorder whole sections, then save (see §7).
+   AI-drafted text, add or remove text boxes / highlights / recommendations,
+   reorder whole sections, and use an **Edit with AI** assist to rewrite a text
+   box or recommendation from a short instruction, then save (see §7).
 
 ## 5. Report contents (sections)
 
@@ -94,7 +95,7 @@ re-send, or compare past periods.
     company name; saved on blur).
   - **Delete** - removes the report from the store (with confirm).
 - **Why it matters:** persistence turns one-off generation into a durable record,
-  provides the per-report timestamps the eval instrumentation relies on (§9), and
+  provides the per-report timestamps, and
   is the foundation for production features like scheduled auto-drafts and
   period-over-period comparison.
 
@@ -118,13 +119,24 @@ the report's stored JSON; reopening shows the curated version (no re-generation)
 - **Reorder sections.** Whole sections (AI search visibility, organic, traffic,
   competitive, content, recommendations, executive summary) can be moved up or
   down. The chosen order is saved per report and re-applied whenever it's opened.
+- **Edit with AI.** Hovering any editable text box (executive summary or a
+  section overview) or recommendation reveals a **✦ Edit with AI** action. The
+  manager types a short instruction (e.g. "make it more concise", "lead with the
+  revenue number", "warmer tone") and a dedicated AI edit function rewrites just
+  that piece and drops the suggestion straight into the field. The function uses
+  its own system prompt (edit-only, stay grounded, no invented numbers, keep the
+  client-ready tone) and is sent **the full report context plus the specific text
+  being edited**, so the rewrite is aware of both what it's changing and the data
+  behind it. It returns a suggestion only — nothing is persisted until the
+  manager reviews it and hits Save. (Implemented as a separate Claude Sonnet
+  call, distinct from the report-generation prompt.)
 - **Safety.** Editing is only available on saved reports; the server accepts only
   known narrative fields and section ids (unknown paths are ignored); and the UI
   warns before navigating away with unsaved changes.
 - **Why it matters.** It keeps a human in the loop - the manager owns the final
   client-facing output - while preserving the time saved on the first draft. The
-  **edit ratio** this produces is also a core quality signal in the eval (§9):
-  the less managers need to change, the more the draft is trusted.
+  **edit ratio** this produces is also a core quality signal:
+  the less managers need to change, the more the draft is trusted, and overtime with confidence the whole process can be made faster and even automated.
 
 ## 8. Data sources used (and why)
 

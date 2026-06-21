@@ -1,0 +1,715 @@
+{
+  "meta": {
+    "id": "89cbbe923121",
+    "name": "Acme Analytics",
+    "company": "Acme Analytics",
+    "period": "October 2025",
+    "cadence": "Monthly",
+    "created_at": "2026-06-22T01:35:21",
+    "created_display": "22 Jun 2026, 01:35",
+    "created_date": "22 Jun 2026",
+    "created_time": "01:35"
+  },
+  "report": {
+    "client": {
+      "name": "Acme Analytics",
+      "domain": "acme.com",
+      "industry": "B2B SaaS \u2014 product analytics",
+      "market": "US"
+    },
+    "period": {
+      "label": "October 2025",
+      "compare_label": "September 2025",
+      "cadence": "Monthly",
+      "start": "2025-10-01",
+      "end": "2025-10-31"
+    },
+    "organic": {
+      "summary": {
+        "clicks": {
+          "current": 35521,
+          "previous": 34398,
+          "change_pct": 3.3,
+          "direction": "up",
+          "improved": true
+        },
+        "impressions": {
+          "current": 878414,
+          "previous": 870623,
+          "change_pct": 0.9,
+          "direction": "up",
+          "improved": true
+        },
+        "ctr": {
+          "current": 0.04,
+          "previous": 0.04,
+          "change_pct": 2.3,
+          "direction": "up",
+          "improved": true
+        },
+        "position": {
+          "current": 15.0,
+          "previous": 14.4,
+          "change_pct": 4.2,
+          "direction": "up",
+          "improved": false
+        }
+      },
+      "top_queries": [
+        {
+          "phrase": "product analytics tool",
+          "intent": "commercial",
+          "clicks": 891,
+          "clicks_change": -3.2,
+          "position": 6.3,
+          "position_delta": -0.3
+        },
+        {
+          "phrase": "event tracking tool",
+          "intent": "commercial",
+          "clicks": 365,
+          "clicks_change": 8.0,
+          "position": 21.3,
+          "position_delta": 0.9
+        },
+        {
+          "phrase": "customer data platform",
+          "intent": "informational",
+          "clicks": 327,
+          "clicks_change": -42.1,
+          "position": 3.0,
+          "position_delta": -1.5
+        },
+        {
+          "phrase": "self-serve analytics",
+          "intent": "informational",
+          "clicks": 255,
+          "clicks_change": -13.6,
+          "position": 19.9,
+          "position_delta": -4.0
+        },
+        {
+          "phrase": "product analytics",
+          "intent": "informational",
+          "clicks": 217,
+          "clicks_change": 16.0,
+          "position": 10.5,
+          "position_delta": 1.7
+        },
+        {
+          "phrase": "funnel analysis software",
+          "intent": "commercial",
+          "clicks": 217,
+          "clicks_change": 0.0,
+          "position": 20.7,
+          "position_delta": -1.0
+        },
+        {
+          "phrase": "product led growth metrics",
+          "intent": "informational",
+          "clicks": 148,
+          "clicks_change": 16.5,
+          "position": 23.5,
+          "position_delta": 3.8
+        },
+        {
+          "phrase": "session replay software",
+          "intent": "commercial",
+          "clicks": 109,
+          "clicks_change": 5.8,
+          "position": 7.7,
+          "position_delta": 0.4
+        }
+      ],
+      "top_pages": [
+        {
+          "path": "/features/funnels",
+          "title": "Funnel Analysis \u2014 Acme",
+          "clicks": 4490,
+          "clicks_change": 9.4,
+          "position": 7.1
+        },
+        {
+          "path": "/blog/north-star-metric",
+          "title": "How to Choose a North Star Metric",
+          "clicks": 4367,
+          "clicks_change": 0.9,
+          "position": 7.4
+        },
+        {
+          "path": "/product-analytics-guide",
+          "title": "The Complete Guide to Product Analytics",
+          "clicks": 4254,
+          "clicks_change": 8.2,
+          "position": 15.6
+        },
+        {
+          "path": "/blog/plg-metrics",
+          "title": "12 Product-Led Growth Metrics That Matter",
+          "clicks": 3983,
+          "clicks_change": 4.4,
+          "position": 11.5
+        },
+        {
+          "path": "/compare/mixpanel-alternative",
+          "title": "Acme vs Mixpanel",
+          "clicks": 3517,
+          "clicks_change": -8.1,
+          "position": 12.7
+        },
+        {
+          "path": "/blog/activation-rate",
+          "title": "Measuring Activation Rate the Right Way",
+          "clicks": 2463,
+          "clicks_change": 7.3,
+          "position": 13.9
+        }
+      ],
+      "gained": [
+        {
+          "phrase": "product led growth metrics",
+          "intent": "informational",
+          "clicks": 148,
+          "clicks_change": 16.5,
+          "position": 23.5,
+          "position_delta": 3.8
+        },
+        {
+          "phrase": "user retention analytics",
+          "intent": "informational",
+          "clicks": 74,
+          "clicks_change": 15.6,
+          "position": 15.7,
+          "position_delta": 2.3
+        },
+        {
+          "phrase": "product analytics",
+          "intent": "informational",
+          "clicks": 217,
+          "clicks_change": 16.0,
+          "position": 10.5,
+          "position_delta": 1.7
+        },
+        {
+          "phrase": "event tracking tool",
+          "intent": "commercial",
+          "clicks": 365,
+          "clicks_change": 8.0,
+          "position": 21.3,
+          "position_delta": 0.9
+        },
+        {
+          "phrase": "session replay software",
+          "intent": "commercial",
+          "clicks": 109,
+          "clicks_change": 5.8,
+          "position": 7.7,
+          "position_delta": 0.4
+        }
+      ],
+      "lost": [
+        {
+          "phrase": "self-serve analytics",
+          "intent": "informational",
+          "clicks": 255,
+          "clicks_change": -13.6,
+          "position": 19.9,
+          "position_delta": -4.0
+        },
+        {
+          "phrase": "customer data platform",
+          "intent": "informational",
+          "clicks": 327,
+          "clicks_change": -42.1,
+          "position": 3.0,
+          "position_delta": -1.5
+        },
+        {
+          "phrase": "mixpanel alternative",
+          "intent": "commercial",
+          "clicks": 26,
+          "clicks_change": 0.0,
+          "position": 28.3,
+          "position_delta": -1.1
+        },
+        {
+          "phrase": "funnel analysis software",
+          "intent": "commercial",
+          "clicks": 217,
+          "clicks_change": 0.0,
+          "position": 20.7,
+          "position_delta": -1.0
+        },
+        {
+          "phrase": "product analytics tool",
+          "intent": "commercial",
+          "clicks": 891,
+          "clicks_change": -3.2,
+          "position": 6.3,
+          "position_delta": -0.3
+        }
+      ]
+    },
+    "traffic": {
+      "summary": {
+        "sessions": {
+          "current": 64626,
+          "previous": 65871,
+          "change_pct": -1.9,
+          "direction": "down",
+          "improved": false
+        },
+        "totalUsers": {
+          "current": 50408,
+          "previous": 51379,
+          "change_pct": -1.9,
+          "direction": "down",
+          "improved": false
+        },
+        "engagementRate": {
+          "current": 0.59,
+          "previous": 0.6,
+          "change_pct": -2.4,
+          "direction": "down",
+          "improved": false
+        },
+        "conversions": {
+          "current": 1293,
+          "previous": 1505,
+          "change_pct": -14.1,
+          "direction": "down",
+          "improved": false
+        },
+        "revenue": {
+          "current": 1908966,
+          "previous": 2218925,
+          "change_pct": -14.0,
+          "direction": "down",
+          "improved": false
+        }
+      },
+      "channels": [
+        {
+          "name": "Organic Search",
+          "sessions": 30794,
+          "sessions_change": 0.9,
+          "conversions": 586,
+          "revenue": 873495.34
+        },
+        {
+          "name": "Direct",
+          "sessions": 13783,
+          "sessions_change": -8.2,
+          "conversions": 268,
+          "revenue": 417057.7
+        },
+        {
+          "name": "Paid Search",
+          "sessions": 7275,
+          "sessions_change": 6.2,
+          "conversions": 182,
+          "revenue": 239288.02
+        },
+        {
+          "name": "Referral",
+          "sessions": 5866,
+          "sessions_change": -8.2,
+          "conversions": 112,
+          "revenue": 161955.95
+        },
+        {
+          "name": "Social",
+          "sessions": 4378,
+          "sessions_change": -0.9,
+          "conversions": 85,
+          "revenue": 124839.83
+        },
+        {
+          "name": "Email",
+          "sessions": 2530,
+          "sessions_change": -6.1,
+          "conversions": 60,
+          "revenue": 92329.57
+        }
+      ]
+    },
+    "competitive": {
+      "summary": {
+        "organic_keywords": {
+          "current": 4372,
+          "previous": 4323,
+          "change_pct": 1.1,
+          "direction": "up",
+          "improved": true
+        },
+        "traffic": {
+          "current": 52089,
+          "previous": 47449,
+          "change_pct": 9.8,
+          "direction": "up",
+          "improved": true
+        },
+        "ascore": {
+          "current": 51.0,
+          "previous": 52.0,
+          "change_pct": -1.9,
+          "direction": "down",
+          "improved": false
+        },
+        "backlinks": {
+          "current": 120590,
+          "previous": 120968,
+          "change_pct": -0.3,
+          "direction": "down",
+          "improved": false
+        },
+        "ref_domains": {
+          "current": 2371,
+          "previous": 2347,
+          "change_pct": 1.0,
+          "direction": "up",
+          "improved": true
+        }
+      },
+      "competitors": [
+        {
+          "name": "Mixpanel",
+          "visibility": 0.622,
+          "visibility_change": 3.5,
+          "ascore": 60,
+          "is_you": false
+        },
+        {
+          "name": "Amplitude",
+          "visibility": 0.578,
+          "visibility_change": 2.5,
+          "ascore": 67,
+          "is_you": false
+        },
+        {
+          "name": "Acme Analytics",
+          "visibility": 0.474,
+          "visibility_change": 9.8,
+          "ascore": 51,
+          "is_you": true
+        },
+        {
+          "name": "Heap",
+          "visibility": 0.47,
+          "visibility_change": 9.0,
+          "ascore": 67,
+          "is_you": false
+        },
+        {
+          "name": "PostHog",
+          "visibility": 0.28,
+          "visibility_change": 3.3,
+          "ascore": 73,
+          "is_you": false
+        }
+      ]
+    },
+    "ai_visibility": {
+      "summary": {
+        "visibility_score": {
+          "current": 42.7,
+          "previous": 39.3,
+          "change_pct": 8.7,
+          "direction": "up",
+          "improved": true
+        },
+        "share_of_voice": {
+          "current": 0.17,
+          "previous": 0.17,
+          "change_pct": -1.2,
+          "direction": "down",
+          "improved": false
+        },
+        "mention_rate": {
+          "current": 0.32,
+          "previous": 0.31,
+          "change_pct": 2.9,
+          "direction": "up",
+          "improved": true
+        },
+        "avg_position": {
+          "current": 3.7,
+          "previous": 3.7,
+          "change_pct": 0.0,
+          "direction": "flat",
+          "improved": null
+        }
+      },
+      "sentiment": {
+        "positive": 0.33,
+        "neutral": 0.62,
+        "negative": 0.05
+      },
+      "engines": [
+        {
+          "engine": "Copilot",
+          "visibility_score": 56.2,
+          "vs_change": 6.2,
+          "share_of_voice": 0.242,
+          "mention_rate": 0.46,
+          "avg_position": 3.8
+        },
+        {
+          "engine": "Google AI Overviews",
+          "visibility_score": 50.0,
+          "vs_change": 15.5,
+          "share_of_voice": 0.202,
+          "mention_rate": 0.368,
+          "avg_position": 3.3
+        },
+        {
+          "engine": "Perplexity",
+          "visibility_score": 42.4,
+          "vs_change": 8.4,
+          "share_of_voice": 0.188,
+          "mention_rate": 0.34,
+          "avg_position": 3.4
+        },
+        {
+          "engine": "ChatGPT",
+          "visibility_score": 42.1,
+          "vs_change": 10.2,
+          "share_of_voice": 0.151,
+          "mention_rate": 0.293,
+          "avg_position": 3.5
+        },
+        {
+          "engine": "Claude",
+          "visibility_score": 28.3,
+          "vs_change": -1.0,
+          "share_of_voice": 0.118,
+          "mention_rate": 0.234,
+          "avg_position": 3.6
+        }
+      ],
+      "competing_brands": [
+        {
+          "name": "Amplitude",
+          "share_of_voice": 0.309,
+          "top_engine": "Google AI Overviews"
+        },
+        {
+          "name": "PostHog",
+          "share_of_voice": 0.268,
+          "top_engine": "Google AI Overviews"
+        },
+        {
+          "name": "Heap",
+          "share_of_voice": 0.264,
+          "top_engine": "ChatGPT"
+        },
+        {
+          "name": "Mixpanel",
+          "share_of_voice": 0.149,
+          "top_engine": "Google AI Overviews"
+        }
+      ],
+      "cited_pages": [
+        {
+          "title": "Retention Analysis \u2014 Acme",
+          "citations": 32,
+          "citations_change": -3.0,
+          "avg_position": 3.7
+        },
+        {
+          "title": "Measuring Activation Rate the Right Way",
+          "citations": 20,
+          "citations_change": -4.8,
+          "avg_position": 1.8
+        },
+        {
+          "title": "Funnel Analysis \u2014 Acme",
+          "citations": 19,
+          "citations_change": -9.5,
+          "avg_position": 4.4
+        },
+        {
+          "title": "The Complete Guide to Product Analytics",
+          "citations": 13,
+          "citations_change": 8.3,
+          "avg_position": 2.1
+        },
+        {
+          "title": "How to Choose a North Star Metric",
+          "citations": 8,
+          "citations_change": -11.1,
+          "avg_position": 3.3
+        }
+      ],
+      "prompts": [
+        {
+          "prompt": "what is the best product analytics tool?",
+          "engine": "chatgpt",
+          "mentioned": false,
+          "position": null,
+          "sentiment": "neutral",
+          "excerpt": "...the response named Heap, Amplitude but did not mention Acme...",
+          "competitors": [
+            "Heap",
+            "Amplitude"
+          ]
+        },
+        {
+          "prompt": "mixpanel vs amplitude vs acme",
+          "engine": "chatgpt",
+          "mentioned": true,
+          "position": 4,
+          "sentiment": "positive",
+          "excerpt": "...Acme is often recommended here, described as a strong, well-rounded choice...",
+          "competitors": [
+            "PostHog",
+            "Amplitude"
+          ]
+        },
+        {
+          "prompt": "best mixpanel alternative for startups",
+          "engine": "perplexity",
+          "mentioned": false,
+          "position": null,
+          "sentiment": "positive",
+          "excerpt": "...the response named Mixpanel, PostHog but did not mention Acme...",
+          "competitors": [
+            "Mixpanel",
+            "PostHog"
+          ]
+        },
+        {
+          "prompt": "how do I measure user retention?",
+          "engine": "copilot",
+          "mentioned": false,
+          "position": null,
+          "sentiment": "positive",
+          "excerpt": "...the response named Mixpanel, PostHog but did not mention Acme...",
+          "competitors": [
+            "Mixpanel",
+            "PostHog"
+          ]
+        },
+        {
+          "prompt": "what is a customer data platform?",
+          "engine": "chatgpt",
+          "mentioned": false,
+          "position": null,
+          "sentiment": "neutral",
+          "excerpt": "...the response named several alternatives but did not mention Acme...",
+          "competitors": []
+        },
+        {
+          "prompt": "cheapest product analytics for early-stage saas",
+          "engine": "google_aio",
+          "mentioned": false,
+          "position": null,
+          "sentiment": "neutral",
+          "excerpt": "...the response named Heap, Mixpanel but did not mention Acme...",
+          "competitors": [
+            "Heap",
+            "Mixpanel"
+          ]
+        }
+      ]
+    },
+    "content": {
+      "platform": "Wordpress",
+      "total_published": 123,
+      "tracked": 10,
+      "published_recent": 0,
+      "stale_count": 8,
+      "refresh_candidates": [
+        {
+          "title": "Measuring Activation Rate the Right Way",
+          "url": "https://acme.com/blog/measuring-activation-rate-the-right-way",
+          "published_days_ago": 1043,
+          "modified_days_ago": 322,
+          "monthly_traffic": 4904
+        },
+        {
+          "title": "A/B Testing Pitfalls to Avoid",
+          "url": "https://acme.com/blog/a-b-testing-pitfalls-to-avoid",
+          "published_days_ago": 827,
+          "modified_days_ago": 827,
+          "monthly_traffic": 4090
+        },
+        {
+          "title": "Reducing Churn with Behavioural Signals",
+          "url": "https://acme.com/blog/reducing-churn-with-behavioural-signals",
+          "published_days_ago": 402,
+          "modified_days_ago": 319,
+          "monthly_traffic": 3922
+        },
+        {
+          "title": "Cohort Analysis Explained",
+          "url": "https://acme.com/blog/cohort-analysis-explained",
+          "published_days_ago": 914,
+          "modified_days_ago": 725,
+          "monthly_traffic": 2659
+        },
+        {
+          "title": "12 Product-Led Growth Metrics That Matter",
+          "url": "https://acme.com/blog/12-product-led-growth-metrics-that-matter",
+          "published_days_ago": 1109,
+          "modified_days_ago": 1109,
+          "monthly_traffic": 1715
+        }
+      ]
+    },
+    "narrative": {
+      "executive_summary": "October delivered 35,521 organic clicks, up 3.3% month-over-month, though overall site conversions dropped 14.1% to 1,293. Organic search remains your most stable channel, growing 0.9% while Direct and Referral traffic fell 8.2%. AI visibility rose 8.7% to a score of 42.7, with Google AI Overviews surging 15.5% and ChatGPT up 10.2%, positioning Acme to capture demand in emerging search modalities even as traditional conversion patterns soften.",
+      "highlights": [
+        {
+          "title": "AI visibility breakthrough",
+          "detail": "AI visibility score climbed 8.7% to 42.7, driven by 15.5% growth in Google AI Overviews and 10.2% in ChatGPT, with Acme now mentioned in 32% of relevant AI responses."
+        },
+        {
+          "title": "Organic clicks grew despite position drift",
+          "detail": "Clicks rose 3.3% to 35,521 while average position slipped 4.2% to 15.0, indicating strong CTR performance on existing rankings."
+        },
+        {
+          "title": "Conversion and revenue decline",
+          "detail": "Conversions fell 14.1% to 1,293 and revenue dropped 14.0% to 1,908,966 dollars, affecting all channels and suggesting broader funnel or market headwinds."
+        },
+        {
+          "title": "PLG keyword momentum",
+          "detail": "Product led growth metrics improved 3.8 positions and user retention analytics gained 2.3 spots, aligning with high-intent category search."
+        }
+      ],
+      "section_insights": {
+        "organic": "Organic search delivered 35,521 clicks, up 3.3%, with impressions rising just 0.9% and CTR improving 2.3%, meaning you are earning more clicks per impression despite average position dropping from 14.4 to 15.0. Gains in product led growth metrics and user retention analytics offset declines in self-serve analytics (down 4.0 positions) and mixpanel alternative (down 1.1 positions). The click growth with position erosion suggests improved title and meta performance or SERP feature wins.",
+        "ai_visibility": "AI visibility score rose 8.7% to 42.7, the strongest performance area this month, with Google AI Overviews up 15.5%, ChatGPT up 10.2%, and Perplexity up 8.4%. Share of voice held at 17% while mention rate climbed 2.9% to 32%, meaning Acme appears in nearly one in three relevant AI responses. Sentiment remains healthy at 33% positive and just 5% negative, though competitors Amplitude, PostHog, and Heap command higher share of voice, particularly in Google AI Overviews where they dominate.",
+        "competitive": "Acme ranks third in organic visibility at 0.474 behind Mixpanel (0.622) and Amplitude (0.578), and just ahead of Heap (0.47). Estimated organic traffic climbed 9.8% to 52,089, outpacing your keyword growth of 1.1%, while Authority Score dipped 1.9% to 51.0. Referring domains grew 1.0% to 2,371, but backlinks fell slightly by 0.3%, suggesting you are acquiring new links but not at the volume needed to close the gap with category leaders.",
+        "content": "Eight of your 10 tracked posts are stale, and your top five refresh candidates collectively drive 17,290 monthly visits but have gone months without updates. Measuring Activation Rate the Right Way pulls 4,904 visits per month but was last modified 322 days ago, while A/B Testing Pitfalls to Avoid has not been touched since publication 827 days ago despite attracting 4,090 visits monthly. No new content was published in October, leaving traffic concentrated on aging assets that risk losing relevance and rankings as competitors refresh competing content."
+      },
+      "recommendations": [
+        {
+          "title": "Refresh top five stale assets driving 17,290 monthly visits",
+          "detail": "Update Measuring Activation Rate, A/B Testing Pitfalls, Reducing Churn, Cohort Analysis, and 12 PLG Metrics with current data, examples, and structured content optimized for AI extraction. These posts represent significant traffic at risk of decay and high potential for AI citation if reformatted with clear definitions, lists, and comparisons.",
+          "priority": "High"
+        },
+        {
+          "title": "Optimize for Google AI Overviews and ChatGPT citations",
+          "detail": "Both engines grew visibility 15.5% and 10.2% respectively. Add concise summaries, comparison tables, and FAQ schema to high-traffic content targeting product analytics, user retention analytics, and PLG metrics to increase mention rate and move share of voice beyond the current 17%.",
+          "priority": "High"
+        },
+        {
+          "title": "Investigate conversion drop across all channels",
+          "detail": "Conversions fell 14.1% and revenue 14.0% despite stable organic sessions, suggesting changes in user quality, pricing, landing page experience, or competitive offers. Conduct funnel analysis by channel and keyword cohort to isolate whether the issue is traffic composition or site conversion mechanics.",
+          "priority": "High"
+        },
+        {
+          "title": "Recapture declining self-serve analytics and alternative keywords",
+          "detail": "Self-serve analytics dropped 4.0 positions and mixpanel alternative fell 1.1 spots, both high-intent comparison terms. Publish updated comparison content, case studies, or feature matrices targeting these keywords to reclaim rankings and defend against competitor content targeting switcher intent.",
+          "priority": "Medium"
+        },
+        {
+          "title": "Accelerate content publishing cadence",
+          "detail": "Zero new posts in October leaves you reactive rather than proactive. Publish at least two to three pieces per month on emerging PLG topics, product analytics use cases, and retention strategies to grow keyword footprint, feed AI training data, and maintain content freshness signals.",
+          "priority": "Medium"
+        }
+      ]
+    }
+  }
+}

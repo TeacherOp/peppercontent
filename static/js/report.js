@@ -90,6 +90,7 @@
     editableEls().forEach(function (el) { el.removeAttribute("contenteditable"); });
     recItems().forEach(function (li) { toggleRec(li, false); setPriority(li, li.dataset.priority || "Medium"); });
     removeSectionTools();
+    closeAi();
     btn.textContent = "Edit";
     btn.classList.add("ghost");
   }
@@ -148,6 +149,7 @@
     wrap.className = "text-block";
     wrap.innerHTML =
       '<p class="insight ed-block" contenteditable="true"></p>' +
+      '<button type="button" class="ai-edit no-print" data-ai="text" title="Edit with AI">✦ AI</button>' +
       '<button type="button" class="block-remove no-print" aria-label="Remove text box">✕</button>';
     return wrap;
   }
@@ -198,6 +200,7 @@
       li.innerHTML =
         '<span class="prio prio-medium" data-prio-badge>Medium</span>' +
         '<div class="rec-body"><strong class="rec-title"></strong><p class="rec-detail"></p></div>' +
+        '<button type="button" class="ai-edit no-print" data-ai="recommendation" title="Edit with AI">✦ AI</button>' +
         '<button type="button" class="rec-remove no-print" aria-label="Remove recommendation">✕</button>';
       recList.appendChild(li);
       toggleRec(li, true);
@@ -235,6 +238,91 @@
       if (next) sec.parentNode.insertBefore(next, sec);
     }
     sec.scrollIntoView({ block: "nearest" });
+  });
+
+  // --- Edit with AI -----------------------------------------------------
+  var aiPop = document.createElement("div");
+  aiPop.className = "ai-pop";
+  aiPop.hidden = true;
+  aiPop.innerHTML =
+    '<div class="ai-pop-head">✦ Edit with AI</div>' +
+    '<textarea class="ai-pop-input" rows="3" placeholder="Tell the AI how to edit — e.g. make it more concise, lead with the revenue number, warmer tone"></textarea>' +
+    '<div class="ai-pop-actions"><span class="ai-pop-status"></span>' +
+    '<button type="button" class="ai-cancel">Cancel</button>' +
+    '<button type="button" class="ai-send">Send</button></div>';
+  document.body.appendChild(aiPop);
+  var aiInput = aiPop.querySelector(".ai-pop-input");
+  var aiStatus = aiPop.querySelector(".ai-pop-status");
+  var aiSend = aiPop.querySelector(".ai-send");
+  var aiTarget = null, aiKind = "text", aiField = "";
+
+  function closeAi() { aiPop.hidden = true; aiTarget = null; }
+
+  function openAi(triggerBtn) {
+    var block = triggerBtn.closest(".text-block, .rec-item");
+    if (!block) return;
+    aiTarget = block;
+    aiKind = triggerBtn.dataset.ai || "text";
+    if (aiKind === "recommendation") aiField = "recommendations";
+    else { var g = block.closest(".block-group"); aiField = g ? g.dataset.group : ""; }
+    aiStatus.textContent = "";
+    aiInput.value = "";
+    var r = triggerBtn.getBoundingClientRect();
+    var left = window.scrollX + r.right - 300;
+    aiPop.style.top = (window.scrollY + r.bottom + 6) + "px";
+    aiPop.style.left = Math.max(12, left) + "px";
+    aiPop.hidden = false;
+    aiInput.focus();
+  }
+
+  function aiCurrent(block, kind) {
+    if (kind === "recommendation") {
+      return "Title: " + block.querySelector(".rec-title").innerText.trim() +
+             "\nDetail: " + block.querySelector(".rec-detail").innerText.trim();
+    }
+    var ed = block.querySelector(".ed-block");
+    return ed ? ed.innerText.trim() : "";
+  }
+
+  function aiApply(block, kind, result) {
+    if (kind === "recommendation") {
+      if (result.title != null) block.querySelector(".rec-title").innerText = result.title;
+      if (result.detail != null) block.querySelector(".rec-detail").innerText = result.detail;
+    } else {
+      var ed = block.querySelector(".ed-block");
+      if (ed && result.text != null) ed.innerText = result.text;
+    }
+  }
+
+  function aiSubmit() {
+    if (!aiTarget) return;
+    var instruction = aiInput.value.trim();
+    if (!instruction) { aiStatus.textContent = "Type an instruction first."; return; }
+    aiSend.disabled = true;
+    aiStatus.textContent = "Thinking…";
+    var block = aiTarget, kind = aiKind;
+    fetch("/reports/" + reportId + "/ai-edit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ field: aiField, kind: kind, current: aiCurrent(block, kind), instruction: instruction }),
+    })
+      .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || "failed"); return j; }); })
+      .then(function (j) { aiApply(block, kind, j); closeAi(); })
+      .catch(function (e) { aiStatus.textContent = e.message || "Couldn't edit — try again"; })
+      .finally(function () { aiSend.disabled = false; });
+  }
+
+  document.addEventListener("click", function (e) {
+    var trigger = e.target.closest(".ai-edit");
+    if (trigger && editing) { e.preventDefault(); openAi(trigger); return; }
+    if (aiPop.hidden) return;
+    if (e.target.closest(".ai-cancel")) { closeAi(); return; }
+    if (e.target.closest(".ai-send")) { aiSubmit(); return; }
+    if (!aiPop.contains(e.target)) closeAi();
+  });
+  aiInput.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeAi();
+    else if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) { e.preventDefault(); aiSubmit(); }
   });
 
   btn.addEventListener("click", function () { if (editing) save(); else enterEdit(); });

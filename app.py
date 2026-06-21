@@ -17,6 +17,7 @@ import config
 from atlas import clients as clients_mod
 from atlas import store
 from atlas.mock_api import _gen
+from atlas.report.ai_edit import ai_edit
 from atlas.report.builder import build_report
 
 app = Flask(__name__)
@@ -128,6 +129,28 @@ def edit_narrative(report_id):
     if not store.update_narrative(report_id, edits):
         abort(404)
     return jsonify({"ok": True})
+
+
+@app.route("/reports/<report_id>/ai-edit", methods=["POST"])
+def ai_edit_report(report_id):
+    data = store.get_report(report_id)
+    if data is None:
+        abort(404)
+    body = request.get_json(silent=True) or {}
+    instruction = (body.get("instruction") or "").strip()
+    if not instruction:
+        return jsonify({"error": "Please describe the edit you want."}), 400
+    try:
+        result = ai_edit(
+            data["report"],
+            body.get("field", ""),
+            body.get("kind", "text"),
+            body.get("current", ""),
+            instruction,
+        )
+    except RuntimeError as exc:
+        return jsonify({"error": str(exc)}), 400
+    return jsonify(result)
 
 
 @app.route("/reports/<report_id>/delete", methods=["POST"])

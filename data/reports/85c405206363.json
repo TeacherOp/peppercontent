@@ -1,0 +1,697 @@
+{
+  "meta": {
+    "id": "85c405206363",
+    "name": "Verdant Skincare",
+    "company": "Verdant Skincare",
+    "period": "July 2025",
+    "cadence": "Monthly",
+    "created_at": "2026-06-22T01:36:20",
+    "created_display": "22 Jun 2026, 01:36",
+    "created_date": "22 Jun 2026",
+    "created_time": "01:36"
+  },
+  "report": {
+    "client": {
+      "name": "Verdant Skincare",
+      "domain": "verdantskin.com",
+      "industry": "DTC beauty & skincare ecommerce",
+      "market": "UK"
+    },
+    "period": {
+      "label": "July 2025",
+      "compare_label": "June 2025",
+      "cadence": "Monthly",
+      "start": "2025-07-01",
+      "end": "2025-07-31"
+    },
+    "organic": {
+      "summary": {
+        "clicks": {
+          "current": 23635,
+          "previous": 21892,
+          "change_pct": 8.0,
+          "direction": "up",
+          "improved": true
+        },
+        "impressions": {
+          "current": 558344,
+          "previous": 545057,
+          "change_pct": 2.4,
+          "direction": "up",
+          "improved": true
+        },
+        "ctr": {
+          "current": 0.04,
+          "previous": 0.04,
+          "change_pct": 5.2,
+          "direction": "up",
+          "improved": true
+        },
+        "position": {
+          "current": 14.6,
+          "previous": 14.7,
+          "change_pct": -0.7,
+          "direction": "down",
+          "improved": true
+        }
+      },
+      "top_queries": [
+        {
+          "phrase": "vitamin c serum",
+          "intent": "transactional",
+          "clicks": 1058,
+          "clicks_change": 36.2,
+          "position": 5.4,
+          "position_delta": 2.1
+        },
+        {
+          "phrase": "spf 50 face cream",
+          "intent": "transactional",
+          "clicks": 383,
+          "clicks_change": -10.9,
+          "position": 14.2,
+          "position_delta": -2.3
+        },
+        {
+          "phrase": "how to layer skincare",
+          "intent": "informational",
+          "clicks": 319,
+          "clicks_change": 1.6,
+          "position": 20.2,
+          "position_delta": 0.9
+        },
+        {
+          "phrase": "retinol for beginners",
+          "intent": "informational",
+          "clicks": 287,
+          "clicks_change": 1.4,
+          "position": 19.9,
+          "position_delta": 0.8
+        },
+        {
+          "phrase": "vegan skincare",
+          "intent": "commercial",
+          "clicks": 248,
+          "clicks_change": -29.7,
+          "position": 5.0,
+          "position_delta": -1.8
+        },
+        {
+          "phrase": "hyaluronic acid benefits",
+          "intent": "informational",
+          "clicks": 246,
+          "clicks_change": 1.7,
+          "position": 21.1,
+          "position_delta": 0.9
+        },
+        {
+          "phrase": "niacinamide serum",
+          "intent": "transactional",
+          "clicks": 201,
+          "clicks_change": 3.6,
+          "position": 35.2,
+          "position_delta": 0.3
+        },
+        {
+          "phrase": "best moisturiser for dry skin",
+          "intent": "commercial",
+          "clicks": 191,
+          "clicks_change": -6.8,
+          "position": 25.1,
+          "position_delta": -1.5
+        }
+      ],
+      "top_pages": [
+        {
+          "path": "/products/spf-50",
+          "title": "Daily Defence SPF 50",
+          "clicks": 3524,
+          "clicks_change": 5.8,
+          "position": 17.0
+        },
+        {
+          "path": "/collections/vegan",
+          "title": "Vegan Skincare \u2014 Verdant",
+          "clicks": 1919,
+          "clicks_change": -1.7,
+          "position": 5.3
+        },
+        {
+          "path": "/products/vitamin-c-serum",
+          "title": "Vitamin C Brightening Serum",
+          "clicks": 1728,
+          "clicks_change": -6.3,
+          "position": 13.4
+        },
+        {
+          "path": "/collections/moisturisers",
+          "title": "Moisturisers \u2014 Verdant",
+          "clicks": 1648,
+          "clicks_change": 6.3,
+          "position": 11.6
+        },
+        {
+          "path": "/blog/skincare-layering",
+          "title": "How to Layer Your Skincare",
+          "clicks": 1409,
+          "clicks_change": -8.6,
+          "position": 11.0
+        },
+        {
+          "path": "/products/niacinamide-serum",
+          "title": "Niacinamide 10% Serum",
+          "clicks": 994,
+          "clicks_change": -0.1,
+          "position": 14.5
+        }
+      ],
+      "gained": [
+        {
+          "phrase": "sensitive skin routine",
+          "intent": "informational",
+          "clicks": 68,
+          "clicks_change": 6.2,
+          "position": 34.4,
+          "position_delta": 3.2
+        },
+        {
+          "phrase": "vitamin c serum",
+          "intent": "transactional",
+          "clicks": 1058,
+          "clicks_change": 36.2,
+          "position": 5.4,
+          "position_delta": 2.1
+        },
+        {
+          "phrase": "hyaluronic acid benefits",
+          "intent": "informational",
+          "clicks": 246,
+          "clicks_change": 1.7,
+          "position": 21.1,
+          "position_delta": 0.9
+        },
+        {
+          "phrase": "how to layer skincare",
+          "intent": "informational",
+          "clicks": 319,
+          "clicks_change": 1.6,
+          "position": 20.2,
+          "position_delta": 0.9
+        },
+        {
+          "phrase": "retinol for beginners",
+          "intent": "informational",
+          "clicks": 287,
+          "clicks_change": 1.4,
+          "position": 19.9,
+          "position_delta": 0.8
+        }
+      ],
+      "lost": [
+        {
+          "phrase": "the ordinary alternative",
+          "intent": "commercial",
+          "clicks": 184,
+          "clicks_change": -12.8,
+          "position": 29.9,
+          "position_delta": -4.0
+        },
+        {
+          "phrase": "spf 50 face cream",
+          "intent": "transactional",
+          "clicks": 383,
+          "clicks_change": -10.9,
+          "position": 14.2,
+          "position_delta": -2.3
+        },
+        {
+          "phrase": "vegan skincare",
+          "intent": "commercial",
+          "clicks": 248,
+          "clicks_change": -29.7,
+          "position": 5.0,
+          "position_delta": -1.8
+        },
+        {
+          "phrase": "best moisturiser for dry skin",
+          "intent": "commercial",
+          "clicks": 191,
+          "clicks_change": -6.8,
+          "position": 25.1,
+          "position_delta": -1.5
+        }
+      ]
+    },
+    "traffic": {
+      "summary": {
+        "sessions": {
+          "current": 41268,
+          "previous": 42225,
+          "change_pct": -2.3,
+          "direction": "down",
+          "improved": false
+        },
+        "totalUsers": {
+          "current": 32189,
+          "previous": 32935,
+          "change_pct": -2.3,
+          "direction": "down",
+          "improved": false
+        },
+        "engagementRate": {
+          "current": 0.58,
+          "previous": 0.63,
+          "change_pct": -7.2,
+          "direction": "down",
+          "improved": false
+        },
+        "conversions": {
+          "current": 953,
+          "previous": 981,
+          "change_pct": -2.9,
+          "direction": "down",
+          "improved": false
+        },
+        "revenue": {
+          "current": 47906,
+          "previous": 47764,
+          "change_pct": 0.3,
+          "direction": "up",
+          "improved": true
+        }
+      },
+      "channels": [
+        {
+          "name": "Organic Search",
+          "sessions": 18433,
+          "sessions_change": -2.6,
+          "conversions": 388,
+          "revenue": 20234.25
+        },
+        {
+          "name": "Direct",
+          "sessions": 9352,
+          "sessions_change": 0.5,
+          "conversions": 217,
+          "revenue": 10650.12
+        },
+        {
+          "name": "Paid Search",
+          "sessions": 4969,
+          "sessions_change": 6.2,
+          "conversions": 144,
+          "revenue": 7579.71
+        },
+        {
+          "name": "Referral",
+          "sessions": 4145,
+          "sessions_change": -4.7,
+          "conversions": 87,
+          "revenue": 4109.88
+        },
+        {
+          "name": "Social",
+          "sessions": 2732,
+          "sessions_change": -13.3,
+          "conversions": 67,
+          "revenue": 3117.51
+        },
+        {
+          "name": "Email",
+          "sessions": 1637,
+          "sessions_change": -9.5,
+          "conversions": 50,
+          "revenue": 2214.66
+        }
+      ]
+    },
+    "competitive": {
+      "summary": {
+        "organic_keywords": {
+          "current": 2864,
+          "previous": 2839,
+          "change_pct": 0.9,
+          "direction": "up",
+          "improved": true
+        },
+        "traffic": {
+          "current": 31604,
+          "previous": 31877,
+          "change_pct": -0.9,
+          "direction": "down",
+          "improved": false
+        },
+        "ascore": {
+          "current": 47.0,
+          "previous": 46.0,
+          "change_pct": 2.2,
+          "direction": "up",
+          "improved": true
+        },
+        "backlinks": {
+          "current": 79086,
+          "previous": 78432,
+          "change_pct": 0.8,
+          "direction": "up",
+          "improved": true
+        },
+        "ref_domains": {
+          "current": 1551,
+          "previous": 1543,
+          "change_pct": 0.5,
+          "direction": "up",
+          "improved": true
+        }
+      },
+      "competitors": [
+        {
+          "name": "Paula's Choice",
+          "visibility": 0.616,
+          "visibility_change": -2.4,
+          "ascore": 46,
+          "is_you": false
+        },
+        {
+          "name": "CeraVe",
+          "visibility": 0.503,
+          "visibility_change": 5.0,
+          "ascore": 59,
+          "is_you": false
+        },
+        {
+          "name": "Versed",
+          "visibility": 0.47,
+          "visibility_change": -5.1,
+          "ascore": 47,
+          "is_you": false
+        },
+        {
+          "name": "The Ordinary",
+          "visibility": 0.4,
+          "visibility_change": 6.1,
+          "ascore": 72,
+          "is_you": false
+        },
+        {
+          "name": "Verdant Skincare",
+          "visibility": 0.287,
+          "visibility_change": -0.9,
+          "ascore": 47,
+          "is_you": true
+        }
+      ]
+    },
+    "ai_visibility": {
+      "summary": {
+        "visibility_score": {
+          "current": 35.3,
+          "previous": 33.6,
+          "change_pct": 5.1,
+          "direction": "up",
+          "improved": true
+        },
+        "share_of_voice": {
+          "current": 0.14,
+          "previous": 0.15,
+          "change_pct": -4.7,
+          "direction": "down",
+          "improved": false
+        },
+        "mention_rate": {
+          "current": 0.27,
+          "previous": 0.27,
+          "change_pct": 1.9,
+          "direction": "up",
+          "improved": true
+        },
+        "avg_position": {
+          "current": 3.9,
+          "previous": 3.9,
+          "change_pct": 0.0,
+          "direction": "flat",
+          "improved": null
+        }
+      },
+      "sentiment": {
+        "positive": 0.36,
+        "neutral": 0.59,
+        "negative": 0.05
+      },
+      "engines": [
+        {
+          "engine": "Google AI Overviews",
+          "visibility_score": 50.1,
+          "vs_change": 1.8,
+          "share_of_voice": 0.205,
+          "mention_rate": 0.398,
+          "avg_position": 3.5
+        },
+        {
+          "engine": "Copilot",
+          "visibility_score": 46.5,
+          "vs_change": 9.9,
+          "share_of_voice": 0.204,
+          "mention_rate": 0.356,
+          "avg_position": 4.9
+        },
+        {
+          "engine": "Perplexity",
+          "visibility_score": 46.2,
+          "vs_change": -1.1,
+          "share_of_voice": 0.189,
+          "mention_rate": 0.373,
+          "avg_position": 3.5
+        },
+        {
+          "engine": "ChatGPT",
+          "visibility_score": 40.7,
+          "vs_change": -0.2,
+          "share_of_voice": 0.173,
+          "mention_rate": 0.299,
+          "avg_position": 4.8
+        },
+        {
+          "engine": "Claude",
+          "visibility_score": 28.2,
+          "vs_change": -3.1,
+          "share_of_voice": 0.128,
+          "mention_rate": 0.223,
+          "avg_position": 3.6
+        }
+      ],
+      "competing_brands": [
+        {
+          "name": "The Ordinary",
+          "share_of_voice": 0.298,
+          "top_engine": "Copilot"
+        },
+        {
+          "name": "CeraVe",
+          "share_of_voice": 0.232,
+          "top_engine": "Google AI Overviews"
+        },
+        {
+          "name": "Versed",
+          "share_of_voice": 0.181,
+          "top_engine": "Perplexity"
+        },
+        {
+          "name": "Paula's Choice",
+          "share_of_voice": 0.12,
+          "top_engine": "Copilot"
+        }
+      ],
+      "cited_pages": [
+        {
+          "title": "Niacinamide 10% Serum",
+          "citations": 32,
+          "citations_change": -5.9,
+          "avg_position": 1.5
+        },
+        {
+          "title": "Vitamin C Brightening Serum",
+          "citations": 25,
+          "citations_change": 0.0,
+          "avg_position": 1.4
+        },
+        {
+          "title": "Retinol for Beginners: A Gentle Start",
+          "citations": 20,
+          "citations_change": 0.0,
+          "avg_position": 3.3
+        },
+        {
+          "title": "Daily Defence SPF 50",
+          "citations": 13,
+          "citations_change": 18.2,
+          "avg_position": 1.2
+        },
+        {
+          "title": "Moisturisers \u2014 Verdant",
+          "citations": 12,
+          "citations_change": 0.0,
+          "avg_position": 4.1
+        }
+      ],
+      "prompts": [
+        {
+          "prompt": "best vitamin c serum uk",
+          "engine": "chatgpt",
+          "mentioned": true,
+          "position": 2,
+          "sentiment": "neutral",
+          "excerpt": "...Verdant is often recommended here, described as one option to consider...",
+          "competitors": []
+        },
+        {
+          "prompt": "affordable vegan skincare brands",
+          "engine": "perplexity",
+          "mentioned": true,
+          "position": 3,
+          "sentiment": "neutral",
+          "excerpt": "...Verdant is often recommended here, described as one option to consider...",
+          "competitors": [
+            "The Ordinary",
+            "CeraVe"
+          ]
+        },
+        {
+          "prompt": "the ordinary alternatives",
+          "engine": "copilot",
+          "mentioned": true,
+          "position": 3,
+          "sentiment": "neutral",
+          "excerpt": "...Verdant is often recommended here, described as one option to consider...",
+          "competitors": [
+            "CeraVe",
+            "The Ordinary"
+          ]
+        },
+        {
+          "prompt": "how to start using retinol",
+          "engine": "chatgpt",
+          "mentioned": true,
+          "position": 2,
+          "sentiment": "neutral",
+          "excerpt": "...Verdant is often recommended here, described as one option to consider...",
+          "competitors": [
+            "The Ordinary",
+            "CeraVe"
+          ]
+        },
+        {
+          "prompt": "best moisturiser for dry sensitive skin",
+          "engine": "perplexity",
+          "mentioned": false,
+          "position": null,
+          "sentiment": "positive",
+          "excerpt": "...the response named Paula's Choice, Versed but did not mention Verdant...",
+          "competitors": [
+            "Paula's Choice",
+            "Versed"
+          ]
+        },
+        {
+          "prompt": "cruelty free skincare uk",
+          "engine": "copilot",
+          "mentioned": false,
+          "position": null,
+          "sentiment": "positive",
+          "excerpt": "...the response named several alternatives but did not mention Verdant...",
+          "competitors": []
+        }
+      ]
+    },
+    "content": {
+      "platform": "Webflow",
+      "total_published": 93,
+      "tracked": 10,
+      "published_recent": 2,
+      "stale_count": 4,
+      "refresh_candidates": [
+        {
+          "title": "Ingredients to Avoid for Acne-Prone Skin",
+          "url": "https://verdantskin.com/blog/ingredients-to-avoid-for-acne-prone-skin",
+          "published_days_ago": 767,
+          "modified_days_ago": 347,
+          "monthly_traffic": 3649
+        },
+        {
+          "title": "The Truth About Hyaluronic Acid",
+          "url": "https://verdantskin.com/blog/the-truth-about-hyaluronic-acid",
+          "published_days_ago": 503,
+          "modified_days_ago": 503,
+          "monthly_traffic": 3161
+        },
+        {
+          "title": "A Routine for Sensitive Skin",
+          "url": "https://verdantskin.com/blog/a-routine-for-sensitive-skin",
+          "published_days_ago": 432,
+          "modified_days_ago": 272,
+          "monthly_traffic": 2709
+        },
+        {
+          "title": "Decoding SPF Labels",
+          "url": "https://verdantskin.com/blog/decoding-spf-labels",
+          "published_days_ago": 723,
+          "modified_days_ago": 201,
+          "monthly_traffic": 841
+        }
+      ]
+    },
+    "narrative": {
+      "executive_summary": "Verdant Skincare delivered 8.0% organic click growth in July, driven by ranking improvements for educational content around sensitive skin and ingredient education. However, overall site sessions fell 2.3% and engagement dropped 7.2%, indicating a disconnect between search visibility gains and on-site conversion quality. AI visibility rose 5.1% with particularly strong 9.9% growth in Copilot, though share of voice slipped 4.7% as competitors maintained dominance. Revenue held flat at 47,906 GBP despite 2.9% fewer conversions, suggesting higher-value transactions but fragile momentum.",
+      "highlights": [
+        {
+          "title": "Organic clicks up despite lower engagement",
+          "detail": "Clicks increased 8.0% to 23,635, but engagement rate fell 7.2% to 0.58, signaling a quality or intent-match issue with landing pages."
+        },
+        {
+          "title": "AI visibility climbing, especially in Copilot",
+          "detail": "Overall AI visibility score rose 5.1% to 35.3, with Copilot visibility surging 9.9% to 46.5, though share of voice contracted 4.7% to 0.14."
+        },
+        {
+          "title": "Educational keywords gaining traction",
+          "detail": "Sensitive skin routine improved 3.2 positions and vitamin C serum rose 2.1 positions, reflecting content authority in foundational skincare education."
+        },
+        {
+          "title": "Revenue stable but sessions declining",
+          "detail": "Revenue edged up 0.3% to 47,906 GBP while sessions dropped 2.3% to 41,268, masking underlying traffic and engagement deterioration."
+        }
+      ],
+      "section_insights": {
+        "organic": "Organic search delivered 8.0% more clicks with modest 2.4% impression growth, suggesting improved click-through efficiency. Ranking gains concentrated in educational content around sensitive skin, vitamin C, and hyaluronic acid, while competitive comparison terms like 'the ordinary alternative' dropped 4.0 positions. Organic Search sessions fell 2.6% to 18,433, indicating that click growth has not yet translated to sustained site engagement or conversion momentum.",
+        "ai_visibility": "AI visibility score climbed 5.1% to 35.3, driven by a 9.9% surge in Copilot visibility to 46.5 and modest gains in Google AI Overviews. However, share of voice declined 4.7% to 0.14 as The Ordinary (0.298) and CeraVe (0.232) continue to dominate AI recommendations across engines. Sentiment remains favourable at 36% positive with only 5% negative, but Verdant's average position of 3.9 in AI responses leaves significant room to climb into primary recommendation slots.",
+        "competitive": "Verdant ranks fifth in organic visibility at 0.287, trailing Paula's Choice (0.616), CeraVe (0.503), Versed (0.47), and The Ordinary (0.4). Authority score improved modestly from 46.0 to 47.0, with 25 net new organic keywords and 654 new backlinks, but the gap to market leaders remains wide. Traffic estimate fell 0.9% to 31,604 while competitors maintain stronger momentum, suggesting Verdant's recent content gains have not yet shifted competitive positioning meaningfully.",
+        "content": "Four high-traffic pieces collectively driving 10,360 monthly sessions have not been refreshed in 6-12 months, representing immediate optimization opportunities. The hyaluronic acid article (3,161 monthly sessions, unmodified for 503 days) and sensitive skin routine piece (2,709 sessions, last updated 272 days ago) align directly with current ranking gains, suggesting refresh could amplify momentum. Two new posts published in July indicate ongoing production, but with only 10 of 93 total articles actively tracked, content inventory management appears inconsistent."
+      },
+      "recommendations": [
+        {
+          "title": "Refresh hyaluronic acid and sensitive skin content immediately",
+          "detail": "These two articles drive 5,870 combined monthly sessions, align with top gaining keywords (hyaluronic acid benefits up 0.9 positions, sensitive skin routine up 3.2), and have not been updated in 16+ months. Fresh clinical references, product integration, and AI-optimized FAQs could lift rankings further and capture growing AI citation opportunities, particularly in Copilot where visibility jumped 9.9%.",
+          "priority": "High"
+        },
+        {
+          "title": "Diagnose and repair engagement rate decline",
+          "detail": "Engagement rate dropped 7.2% to 0.58 despite 8.0% click growth, indicating a mismatch between search intent and landing page experience. Audit top landing pages for load speed, mobile UX, and content-to-product pathway clarity. Expected impact: recover 3-5 percentage points of engagement and stabilize conversion rate, protecting the 47,906 GBP baseline.",
+          "priority": "High"
+        },
+        {
+          "title": "Develop AI-first content targeting The Ordinary comparison intent",
+          "detail": "'The ordinary alternative' dropped 4.0 positions and The Ordinary commands 0.298 AI share of voice versus Verdant's 0.14. Create comparison guides, ingredient-match tools, and benefit-focused content explicitly designed for AI summarization and citation. This addresses a high-intent query cluster where Verdant is losing ground in both organic and AI channels.",
+          "priority": "High"
+        },
+        {
+          "title": "Expand content tracking from 10 to 25-30 strategic articles",
+          "detail": "With 93 published posts but only 10 tracked, visibility into content performance is incomplete. Prioritize tracking for remaining ingredient education, routine-building, and product comparison articles to identify additional refresh candidates and monitor keyword-content alignment systematically.",
+          "priority": "Medium"
+        },
+        {
+          "title": "Optimize SPF content for both organic recovery and AI citation",
+          "detail": "'Spf 50 face cream' dropped 2.3 positions and the SPF labels article (841 monthly sessions, last updated 201 days ago) is aging. Summer seasonality and rising sun safety awareness create a window to reclaim this term with updated dermatologist quotes, product recommendations, and myth-busting FAQs formatted for AI engine extraction.",
+          "priority": "Medium"
+        }
+      ]
+    }
+  }
+}

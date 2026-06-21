@@ -44,6 +44,7 @@
     {% for para in items %}
     <div class="text-block">
       <p class="{{ cls }} ed-block">{{ para }}</p>
+      <button type="button" class="ai-edit no-print" data-ai="text" title="Edit with AI">✦ AI</button>
       <button type="button" class="block-remove no-print" aria-label="Remove text box">✕</button>
     </div>
     {% endfor %}
@@ -278,6 +279,7 @@
           <strong class="rec-title">{{ r.title }}</strong>
           <p class="rec-detail">{{ r.detail }}</p>
         </div>
+        <button type="button" class="ai-edit no-print" data-ai="recommendation" title="Edit with AI">✦ AI</button>
         <button type="button" class="rec-remove no-print" aria-label="Remove recommendation">✕</button>
       </li>
       {% endfor %}
