@@ -83,6 +83,11 @@ def _form_context(**extra):
 
 # --- routes --------------------------------------------------------------
 
+@app.route("/health")
+def health():
+    return {"status": "ok"}
+
+
 @app.route("/")
 def index():
     return render_template("index.html", **_form_context())

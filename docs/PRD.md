@@ -52,7 +52,7 @@ and reopenable from the library.
    clients; in production each module is swapped for the real client.
 2. **Computes period-over-period deltas** for every metric (current vs previous
    period, with direction and whether it's an improvement).
-3. **Generates the narrative with Calude AI ( or any other suitable AI ) ** (`Calude AI ( or any other suitable AI ) ): an executive
+3. **Generates the narrative with Calude AI ( or any other suitable AI ) ** (`Calude AI ( or any other suitable AI ) : an executive
    summary, per-section insights, highlights, and prioritised recommendations -
    grounded only in the supplied numbers.
 4. **Renders a client-ready report**: an HTML page with charts, exportable to

@@ -35,6 +35,28 @@ The app runs in **Claude-required mode**: a valid `ANTHROPIC_API_KEY` must be se
 (it powers the narrative). Without one, the report build fails with a clear
 message instead of shipping a chart-only report.
 
+## Deployment (Docker / Coolify)
+
+The repo ships a `Dockerfile` that runs the app under gunicorn.
+
+```bash
+docker build -t atlas .
+docker run -p 8000:8000 -e ANTHROPIC_API_KEY=sk-ant-... -v atlas-data:/app/data atlas
+# → http://localhost:8000
+```
+
+On **Coolify** (build from the Dockerfile):
+
+- **Port:** `8000` (the container exposes and binds to it).
+- **Environment:** set `ANTHROPIC_API_KEY` (required).
+- **Persistent storage:** mount a volume at **`/app/data`** so saved reports
+  survive redeploys (the JSON store lives there).
+- **Health check path:** `/health` (returns `{"status":"ok"}`).
+
+The image uses a single gunicorn worker with threads and a 120s timeout — one
+writer keeps the file-based JSON store consistent, and the long timeout covers
+the multi-second Claude calls.
+
 ## Data
 
 The 7 sources are treated as **black-box APIs** (per the brief — no real calls).
